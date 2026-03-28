@@ -247,20 +247,21 @@ async function submitTeamCode() {
   const btn = document.getElementById('btn-submit-team-code');
   const code = input?.value.trim().toUpperCase();
 
-  if (!code) { showError(errorEl, 'Ingresa el código de tu equipo'); return; }
+  if (!code) { showError(errorEl, 'Escribe el nombre de tu equipo'); return; }
   if (errorEl) errorEl.classList.add('hidden');
 
-  if (btn) { btn.disabled = true; btn.textContent = 'Conectando...'; }
+  if (btn) { btn.disabled = true; btn.textContent = 'Entrando...'; }
   State.teamCode = code;
 
+  // Caso aleatorio siempre
+  const casoAleatorio = Math.floor(Math.random() * 6) + 1;
+
   try {
-    const team = await getOrCreateTeam(code);
+    const team = await getOrCreateTeam(code, casoAleatorio);
     State.teamId = team.id;
     State.caseId = team.caso_id;
   } catch (_) {
-    // Demo mode: cada código EQ1-EQ6 obtiene su caso, otros aleatorio
-    const demoMap = { EQ1:1, EQ2:2, EQ3:3, EQ4:4, EQ5:5, EQ6:6 };
-    State.caseId = demoMap[code] ?? (Math.floor(Math.random() * 6) + 1);
+    State.caseId = casoAleatorio;
   }
 
   State.caseData = CASOS.find(c => c.id === State.caseId) ?? CASOS[0];
@@ -286,15 +287,12 @@ function getClient() {
   return window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 }
 
-async function getOrCreateTeam(code) {
+async function getOrCreateTeam(nombre, casoId) {
   const db = getClient();
-  const { data } = await db.from('equipos').select('*').eq('codigo', code).single();
-  if (data) return data;
-  const casoMap = { EQ1:1, EQ2:2, EQ3:3, EQ4:4, EQ5:5, EQ6:6 };
-  const casoId = casoMap[code] ?? (Math.floor(Math.random() * 6) + 1);
+  // Cada vez que entra un equipo crea un registro nuevo (permite múltiples intentos)
   const { data: created } = await db
     .from('equipos')
-    .insert({ codigo: code, caso_id: casoId, nombre_equipo: `Equipo ${code}` })
+    .insert({ codigo: nombre, caso_id: casoId, nombre_equipo: nombre })
     .select().single();
   return created;
 }
