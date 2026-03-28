@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0e1a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Assessment de Liderazgo | Taller Ejecutivo</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%230a0e1a'/%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%23f57f17' stroke-width='6'/%3E%3Cpath d='M50 20 L58 42 L50 38 L42 42 Z' fill='%23f57f17'/%3E%3C/svg%3E">
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Loading -->
+  <div id="loading-overlay" class="loading-overlay">
+    <div class="spinner"></div>
+    <p class="loading-text">Cargando...</p>
+  </div>
+
+  <div id="app">
+
+    <!-- ═══════════════════════════════════════
+         PANTALLA: BIENVENIDA
+    ═══════════════════════════════════════ -->
+    <div id="screen-welcome" class="screen">
+      <div class="welcome-screen">
+        <svg class="welcome-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="45" fill="#1a237e"/>
+          <circle cx="50" cy="50" r="28" fill="none" stroke="#f57f17" stroke-width="4" opacity="0.4"/>
+          <path d="M50 18 L60 42 L50 36 L40 42 Z" fill="#f57f17"/>
+          <circle cx="50" cy="62" r="12" fill="#f57f17" opacity="0.9"/>
+        </svg>
+        <h1 class="welcome-title">Assessment de Liderazgo</h1>
+        <p class="welcome-subtitle">Descubre tu estilo de liderazgo en situaciones reales de alto impacto</p>
+        <div class="btn-group" style="max-width:300px;width:100%">
+          <button id="btn-start-assessment" class="btn btn-primary btn-block">Comenzar Assessment</button>
+          <button id="btn-facilitator-view" class="btn btn-secondary btn-block">Vista Facilitador</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         PANTALLA: CÓDIGO DE EQUIPO
+    ═══════════════════════════════════════ -->
+    <div id="screen-team-code" class="screen hidden">
+      <div class="container">
+        <div class="card" style="margin-top:2rem">
+          <div class="card-header">
+            <h2>Código de Equipo</h2>
+            <span class="card-badge">Paso 1 de 3</span>
+          </div>
+          <div class="card-body">
+            <p class="mb-4" style="text-align:center;font-size:0.9rem">Ingresa el código que te entregó el facilitador</p>
+            <div class="form-group">
+              <label class="form-label" for="team-code-input">Código</label>
+              <input
+                type="text"
+                id="team-code-input"
+                class="form-input team-code-input"
+                placeholder="EQ1"
+                maxlength="8"
+                autocomplete="off"
+                autocapitalize="characters"
+                spellcheck="false"
+              >
+              <p class="form-helper text-center mt-2">Ejemplo: EQ1, EQ2, EQ3…</p>
+            </div>
+            <p id="error-msg" class="error-msg hidden"></p>
+            <button id="btn-submit-team-code" class="btn btn-primary btn-block" style="margin-top:0.5rem">
+              Unirse al Taller
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         PANTALLA: INSTRUCCIONES
+    ═══════════════════════════════════════ -->
+    <div id="screen-instructions" class="screen hidden">
+      <div class="container">
+        <div class="card" style="margin-top:1.5rem">
+          <div class="card-header">
+            <h2>Instrucciones</h2>
+            <span class="card-badge">Paso 2 de 3</span>
+          </div>
+          <div class="card-body">
+            <p class="mb-3"><strong style="color:#fff">Estás a punto de enfrentar un caso real.</strong></p>
+            <p class="mb-4">Leerás una situación de liderazgo y elegirás la respuesta que mejor describe cómo actuarías. No hay respuestas correctas — sé honesto.</p>
+            <div class="divider"></div>
+            <div class="flex flex-col gap-3" style="margin-top:1rem">
+              <div class="flex gap-2">
+                <span class="badge">1</span>
+                <p class="text-small">Lee el caso con atención — discútelo con tu equipo</p>
+              </div>
+              <div class="flex gap-2">
+                <span class="badge">2</span>
+                <p class="text-small">Tienen <strong style="color:#f57f17">25 minutos</strong> para analizar y decidir</p>
+              </div>
+              <div class="flex gap-2">
+                <span class="badge">3</span>
+                <p class="text-small">Seleccionen <strong style="color:#fff">una sola opción</strong> como equipo</p>
+              </div>
+              <div class="flex gap-2">
+                <span class="badge">4</span>
+                <p class="text-small">Verán su <strong style="color:#fff">perfil de liderazgo</strong> al terminar</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer flex-center">
+            <button id="btn-start-cases" class="btn btn-primary" style="min-width:200px">
+              Ver Mi Caso →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         PANTALLA: CASO
+    ═══════════════════════════════════════ -->
+    <div id="screen-case" class="screen hidden">
+      <div class="container">
+
+        <!-- Barra de progreso + timer -->
+        <div class="progress-container">
+          <div class="progress-header">
+            <span class="progress-label">Caso <span id="current-case">—</span> de <span id="total-cases">6</span></span>
+            <div class="timer-display">
+              <svg class="timer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span id="timer-value" class="timer-value">25:00</span>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill" style="width:0%"></div>
+          </div>
+        </div>
+
+        <!-- Caso -->
+        <div class="card-case">
+          <div class="case-scenario">
+            <h3 id="case-title">Cargando caso...</h3>
+            <p id="case-description"></p>
+          </div>
+          <div class="card-body">
+            <p id="case-question"></p>
+          </div>
+        </div>
+
+        <!-- Decisiones -->
+        <div id="decision-buttons" class="btn-group"></div>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         PANTALLA: RESULTADOS
+    ═══════════════════════════════════════ -->
+    <div id="screen-results" class="screen hidden">
+      <div class="container">
+        <div class="results-container">
+
+          <!-- Header -->
+          <div class="results-header">
+            <h1 class="results-title">¡Completado!</h1>
+            <p class="results-subtitle">Equipo: <span id="results-team-code">—</span></p>
+          </div>
+
+          <!-- Tarjetas de puntuación -->
+          <div class="results-grid">
+            <div class="result-card">
+              <svg class="result-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+              <div class="result-card-value" id="result-empatia">—</div>
+              <div class="result-card-label">Empatía</div>
+            </div>
+            <div class="result-card">
+              <svg class="result-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+              <div class="result-card-value" id="result-asertividad">—</div>
+              <div class="result-card-label">Asertividad</div>
+            </div>
+            <div class="result-card">
+              <svg class="result-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                <line x1="15" y1="9" x2="15.01" y2="9"/>
+              </svg>
+              <div class="result-card-value" id="result-ie">—</div>
+              <div class="result-card-label">I.E.</div>
+            </div>
+            <div class="result-card">
+              <svg class="result-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+              <div class="result-card-value" id="result-cohesion">—</div>
+              <div class="result-card-label">Cohesión</div>
+            </div>
+          </div>
+
+          <!-- [Perfil se inyecta aquí por JS] -->
+
+          <!-- Radar Chart -->
+          <div class="card" style="animation: fadeInUp 0.5s ease 0.5s both">
+            <h3 class="card-title">Mapa de Liderazgo</h3>
+            <div class="radar-container">
+              <canvas id="radar-chart"></canvas>
+            </div>
+          </div>
+
+          <!-- Barras -->
+          <div class="card" style="animation: fadeInUp 0.5s ease 0.6s both">
+            <h3 class="card-title">Perfil por Dimensión</h3>
+            <div class="bar-chart">
+              <div class="bar-item dim-empatia">
+                <div class="bar-label">
+                  <span class="bar-label-text">
+                    <svg class="bar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    Empatía
+                  </span>
+                  <span class="bar-value" id="bar-value-empatia">—</span>
+                </div>
+                <div class="bar-track">
+                  <div id="bar-fill-empatia" class="bar-fill empatia"></div>
+                </div>
+              </div>
+              <div class="bar-item dim-asertividad">
+                <div class="bar-label">
+                  <span class="bar-label-text">
+                    <svg class="bar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                    Asertividad
+                  </span>
+                  <span class="bar-value" id="bar-value-asertividad">—</span>
+                </div>
+                <div class="bar-track">
+                  <div id="bar-fill-asertividad" class="bar-fill asertividad"></div>
+                </div>
+              </div>
+              <div class="bar-item dim-ie">
+                <div class="bar-label">
+                  <span class="bar-label-text">
+                    <svg class="bar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"/>
+                      <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                      <line x1="9" y1="9" x2="9.01" y2="9"/>
+                      <line x1="15" y1="9" x2="15.01" y2="9"/>
+                    </svg>
+                    Inteligencia Emocional
+                  </span>
+                  <span class="bar-value" id="bar-value-ie">—</span>
+                </div>
+                <div class="bar-track">
+                  <div id="bar-fill-ie" class="bar-fill ie"></div>
+                </div>
+              </div>
+              <div class="bar-item dim-cohesion">
+                <div class="bar-label">
+                  <span class="bar-label-text">
+                    <svg class="bar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                      <circle cx="9" cy="7" r="4"/>
+                      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    Cohesión de Equipo
+                  </span>
+                  <span class="bar-value" id="bar-value-cohesion">—</span>
+                </div>
+                <div class="bar-track">
+                  <div id="bar-fill-cohesion" class="bar-fill cohesion"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 text-center">
+            <button id="btn-restart-assessment" class="btn btn-secondary">
+              Realizar Otro Assessment
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         PANTALLA: FACILITADOR
+    ═══════════════════════════════════════ -->
+    <div id="screen-facilitator" class="screen hidden">
+      <div class="container">
+        <div class="card" style="margin-top:1.5rem">
+          <div class="card-header">
+            <div>
+              <h2>Resultados en Tiempo Real</h2>
+              <p class="text-small text-accent mt-1">Actualización automática cada 5s</p>
+            </div>
+            <div class="live-indicator">
+              <span class="live-dot"></span>
+              EN VIVO
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table class="facilitator-table">
+              <thead>
+                <tr>
+                  <th>Equipo</th>
+                  <th style="color:#e91e63">Emp.</th>
+                  <th style="color:#f57f17">Asr.</th>
+                  <th style="color:#00bcd4">I.E.</th>
+                  <th style="color:#4caf50">Coh.</th>
+                  <th>Perfil</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody id="facilitator-table-body">
+                <tr>
+                  <td colspan="7" class="text-center text-small" style="padding:2rem;color:#546e7a">
+                    Esperando equipos...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card-footer flex-between">
+            <button id="btn-export-results" class="btn btn-secondary">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              Exportar CSV
+            </button>
+            <button id="btn-print-qr" class="btn btn-primary">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7"/>
+                <rect x="14" y="3" width="7" height="7"/>
+                <rect x="14" y="14" width="7" height="7"/>
+                <rect x="3" y="14" width="7" height="7"/>
+              </svg>
+              Ver QR Codes
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-4 text-center">
+          <button id="btn-back-to-main" class="btn btn-ghost">← Volver al Inicio</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════
+         PANTALLA: QR PRINT
+    ═══════════════════════════════════════ -->
+    <div id="screen-qr-print" class="screen hidden">
+      <div class="container">
+        <div class="qr-print-container">
+          <div class="qr-print-header no-print">
+            <h2 class="qr-print-title">Códigos QR del Taller</h2>
+            <p class="qr-print-subtitle">Imprime y entrega uno por equipo</p>
+          </div>
+
+          <div id="qr-grid" class="qr-grid">
+            <div class="text-center text-small" style="grid-column:1/-1;padding:2rem;color:#546e7a">
+              Generando QR codes...
+            </div>
+          </div>
+
+          <div class="qr-instructions no-print">
+            <strong>Instrucciones:</strong> Imprime esta página y corta cada código QR.
+            Cada equipo escanea el suyo para unirse al taller automáticamente.
+          </div>
+
+          <div class="mt-4 flex-center gap-2 no-print">
+            <button id="btn-print" class="btn btn-primary">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:0.25rem">
+                <polyline points="6 9 6 2 18 2 18 9"/>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                <rect x="6" y="14" width="12" height="8"/>
+              </svg>
+              Imprimir
+            </button>
+            <button id="btn-back-to-facilitator" class="btn btn-secondary">← Volver</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /app -->
+
+  <!-- Chart.js para radar -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+
+  <!-- App -->
+  <script src="js/supabase.js"></script>
+  <script src="js/cases.js"></script>
+  <script src="js/qr.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Center - Facilitador</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!--
+    ==========================================================================
+    FACILITATOR REAL-TIME DASHBOARD (Rick's View)
+    ==========================================================================
+    Purpose: Real-time monitoring of all teams during the assessment.
+    
+    TODO:
+    - [ ] Display list of all active teams
+    - [ ] Show current case each team is on
+    - [ ] Display decision status (pending/submitted)
+    - [ ] Real-time updates via Supabase subscription
+    - [ ] Timer synchronization across all teams
+    - [ ] Add ability to extend time for specific teams
+    - [ ] View team decision history
+    - [ ] Add comments/feedback per team
+    - [ ] Export all results to CSV/Excel
+    - [ ] Admin controls for case management
+    - [ ] QR code generator for team setup (see js/qr.js)
+    ==========================================================================
+    -->
+    
+    <div class="container facilitator-dashboard">
+        <header>
+            <h1>Panel del Facilitador</h1>
+            <div class="workshop-timer" id="workshopTimer">00:00</div>
+        </header>
+        
+        <div class="controls">
+            <button id="startWorkshop">Iniciar Workshop</button>
+            <button id="nextCase">Siguiente Caso</button>
+            <button id="endWorkshop">Finalizar Workshop</button>
+        </div>
+        
+        <div class="teams-grid" id="teamsGrid">
+            <!-- Team cards injected by JS -->
+        </div>
+        
+        <div class="qr-generator">
+            <h3>Generar Códigos QR</h3>
+            <button id="generateQR">Generar QR para Equipos</button>
+            <div id="qrCodesContainer"></div>
+        </div>
+    </div>
+    
+    <script src="js/supabase.js"></script>
+    <script src="js/qr.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Center - Caso</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!--
+    ==========================================================================
+    CASE STUDY & DECISION SCREEN
+    ==========================================================================
+    Purpose: Display leadership case studies and capture team decisions.
+    
+    TODO:
+    - [ ] Load cases from js/cases.js
+    - [ ] Display case description with scenario context
+    - [ ] Show 3-4 decision options per case
+    - [ ] Track time remaining for decision
+    - [ ] Allow team to select ONE decision
+    - [ ] Submit decision to Supabase (see js/supabase.js)
+    - [ ] Progress indicator (Case X of 6)
+    - [ ] Navigate to results.html after all cases
+    - [ ] Real-time sync with facilitator view
+    ==========================================================================
+    -->
+    
+    <div class="container">
+        <div class="progress">
+            <span id="caseNumber">Caso 1</span> de <span id="totalCases">6</span>
+        </div>
+        
+        <div class="timer" id="timer">05:00</div>
+        
+        <div class="card case-card">
+            <h2 id="caseTitle">Caso en carga...</h2>
+            <p id="caseDescription">Loading scenario...</p>
+        </div>
+        
+        <div class="options" id="optionsContainer">
+            <!-- Decision options will be injected here by JS -->
+        </div>
+        
+        <button id="submitDecision" disabled>Confirmar Decisión</button>
+    </div>
+    
+    <script src="js/supabase.js"></script>
+    <script src="js/cases.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

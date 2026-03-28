@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Center - Resultados</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!--
+    ==========================================================================
+    FINAL TEAM REPORT SCREEN
+    ==========================================================================
+    Purpose: Display team's aggregated results and performance summary.
+    
+    TODO:
+    - [ ] Fetch team decisions from Supabase (see js/supabase.js)
+    - [ ] Display score/performance metrics
+    - [ ] Show decision breakdown per case (chosen vs optimal)
+    - [ ] Include leadership competency radar chart
+    - [ ] Display team strengths and development areas
+    - [ ] Show facilitator feedback/comments
+    - [ ] Export to PDF option
+    - [ ] QR code to download/share results (see js/qr.js)
+    - [ ] "Return to Home" button
+    ==========================================================================
+    -->
+    
+    <div class="container">
+        <h1>Resultados del Equipo</h1>
+        <h2 id="teamCode">Equipo: ---</h2>
+        
+        <div class="score-card">
+            <div class="score" id="totalScore">--</div>
+            <p>Puntuación Total</p>
+        </div>
+        
+        <div class="results-grid" id="resultsGrid">
+            <!-- Individual case results injected by JS -->
+        </div>
+        
+        <div class="feedback-section">
+            <h3>Retroalimentación del Facilitador</h3>
+            <p id="facilitatorFeedback">Cargando...</p>
+        </div>
+        
+        <div id="qrSection" class="qr-container">
+            <!-- QR code injected by JS (see js/qr.js) -->
+        </div>
+        
+        <button id="restartBtn">Volver al Inicio</button>
+    </div>
+    
+    <script src="js/supabase.js"></script>
+    <script src="js/qr.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

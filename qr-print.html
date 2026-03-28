@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assessment Center - Códigos QR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f7fa;
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    h1 {
+      color: #1a237e;
+      margin-bottom: 0.5rem;
+    }
+    
+    .subtitle {
+      color: #555;
+      margin-bottom: 2rem;
+      font-size: 1.1rem;
+    }
+    
+    .qr-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto 2rem;
+    }
+    
+    .qr-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      break-inside: avoid;
+    }
+    
+    .qr-card h3 {
+      color: #1a237e;
+      margin: 0 0 1rem 0;
+      font-size: 1.2rem;
+    }
+    
+    .qr-card canvas {
+      border: 2px dashed #e0e0e0;
+      border-radius: 4px;
+    }
+    
+    .qr-card p {
+      margin: 0.75rem 0 0 0;
+      font-size: 0.75rem;
+      color: #666;
+      word-break: break-all;
+      max-width: 200px;
+    }
+    
+    .print-btn {
+      background: #1a237e;
+      color: white;
+      border: none;
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .print-btn:hover {
+      background: #283593;
+    }
+    
+    /* Print styles */
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+      
+      .print-btn {
+        display: none !important;
+      }
+      
+      .subtitle {
+        display: none;
+      }
+      
+      .qr-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+        max-width: 100%;
+        margin: 0;
+      }
+      
+      .qr-card {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        border-radius: 0;
+        padding: 1rem;
+        /* Cut lines between cards */
+        border: 1px dashed #999;
+        margin: 0.5rem;
+      }
+      
+      h1 {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Assessment Center - Códigos QR</h1>
+  <p class="subtitle">Imprima esta página y corte los códigos QR</p>
+  
+  <div id="qr-grid" class="qr-grid"></div>
+  
+  <button class="print-btn" onclick="window.print()">🖨️ Imprimir Códigos QR</button>
+  
+  <script src="js/qr.js"></script>
+  <script>
+    // ⚠️ ACTUALIZAR ESTA URL después de deploy en Vercel
+    // Reemplazar 'https://your-app.vercel.app' con la URL real
+    const VERCEL_URL = 'https://your-app.vercel.app';
+    
+    // Generar todos los QR al cargar la página
+    window.addEventListener('DOMContentLoaded', () => {
+      generateAllQRCodes(VERCEL_URL);
+    });
+  </script>
+</body>
+</html>
