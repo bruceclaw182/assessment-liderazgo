@@ -6,7 +6,7 @@
 
 'use strict';
 
-const BASE_URL = 'https://YOUR-APP.vercel.app'; // Rick: replace after Vercel deploy
+const BASE_URL = 'https://assessment-liderazgo.vercel.app'; // Rick: replace after Vercel deploy
 
 const TEAMS = ['EQ1','EQ2','EQ3','EQ4','EQ5','EQ6'];
 
