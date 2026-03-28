@@ -118,7 +118,7 @@ function calcularPerfil(totals) {
 }
 
 // ============================================================
-// ESTADO DE LA APLICACIÓN
+// ESTADO DE LA APLICACIÓN (V2)
 // ============================================================
 const State = {
   teamCode: null,
@@ -132,6 +132,13 @@ const State = {
   radarChart: null,
   warnPlayed: false,
   dangerPlayed: false,
+  // V2: navegación por escenas y preguntas
+  sceneIndex: 0,
+  questionIndex: 0,
+  totalScore: 0,
+  scoreBreakdown: { empatia: 0, asertividad: 0, ie: 0, cohesion: 0 },
+  answeredCount: 0,
+  allAnswers: [],
 };
 
 // ============================================================
@@ -298,7 +305,7 @@ async function getOrCreateTeam(nombre, casoId) {
 }
 
 // ============================================================
-// ASSESSMENT — CASO
+// ASSESSMENT — ENGINE V2 (Escenas × Preguntas con Feedback)
 // ============================================================
 function startAssessment() {
   State.startTime = Date.now();
@@ -306,53 +313,207 @@ function startAssessment() {
   State.timeRemaining = 25 * 60;
   State.warnPlayed = false;
   State.dangerPlayed = false;
-  renderCase();
+  State.sceneIndex = 0;
+  State.questionIndex = 0;
+  State.totalScore = 0;
+  State.scoreBreakdown = { empatia: 0, asertividad: 0, ie: 0, cohesion: 0 };
+  State.answeredCount = 0;
+  State.allAnswers = [];
+  renderCurrentQuestion();
   startTimer();
 }
 
-function renderCase() {
+function getCurrentScene() {
+  return State.caseData?.escenarios?.[State.sceneIndex] ?? null;
+}
+
+function getCurrentQuestion() {
+  const scene = getCurrentScene();
+  return scene?.preguntas?.[State.questionIndex] ?? null;
+}
+
+function renderCurrentQuestion() {
   const c = State.caseData;
-  if (!c) return;
+  const scene = getCurrentScene();
+  const question = getCurrentQuestion();
+  if (!c || !scene || !question) return;
 
-  document.getElementById('current-case').textContent = c.id;
-  document.getElementById('total-cases').textContent = '6';
+  const totalScenes = c.escenarios.length;
+  const sceneNum = State.sceneIndex + 1;
+  const qNum = State.questionIndex + 1;
+  const totalQ = scene.preguntas.length;
+
+  // Header
+  document.getElementById('current-case').textContent = sceneNum;
+  document.getElementById('total-cases').textContent = totalScenes;
+  document.getElementById('progress-fill').style.width = `${((sceneNum - 1) / totalScenes) * 100}%`;
+  document.getElementById('score-value').textContent = State.totalScore;
+  const qLabel = document.getElementById('question-progress-label');
+  if (qLabel) qLabel.textContent = `Pregunta ${qNum} de ${totalQ}`;
+
+  // Contenido
+  const badge = document.getElementById('case-badge');
+  if (badge) badge.textContent = c.tema;
+
   document.getElementById('case-title').textContent = c.titulo;
-  document.getElementById('case-description').textContent = c.contexto;
-  document.getElementById('case-question').textContent = c.crisis;
-  document.getElementById('progress-fill').style.width = `${(c.id / 6) * 100}%`;
+  const sceneTitle = document.getElementById('scene-title');
+  if (sceneTitle) sceneTitle.textContent = scene.titulo;
+  document.getElementById('case-description').textContent = scene.narrativa;
+  document.getElementById('case-question').textContent = question.pregunta;
 
+  // Ocultar feedback/transición, mostrar opciones
+  document.getElementById('feedback-panel')?.classList.add('hidden');
+  document.getElementById('transition-panel')?.classList.add('hidden');
+  document.getElementById('decision-buttons').style.display = '';
+
+  // Renderizar opciones
   const container = document.getElementById('decision-buttons');
   if (!container) return;
   container.innerHTML = '';
 
-  c.decisiones.forEach(d => {
+  question.opciones.forEach(opt => {
     const btn = document.createElement('button');
     btn.className = 'btn btn-decision';
     btn.innerHTML = `
-      <span class="decision-letter">${d.letra}</span>
-      <span class="decision-text">${d.texto}</span>
+      <span class="decision-letter">${opt.letra}</span>
+      <span class="decision-text">${opt.texto}</span>
     `;
-    btn.addEventListener('click', () => onDecisionSelected(d, btn));
+    btn.addEventListener('click', () => onOptionSelected(opt, btn));
     container.appendChild(btn);
   });
 }
 
-function onDecisionSelected(decision, btnEl) {
-  // Desactivar todos
+function onOptionSelected(opt, btnEl) {
+  // Deshabilitar todas las opciones
   document.querySelectorAll('.btn-decision').forEach(b => {
     b.disabled = true;
     b.style.opacity = b === btnEl ? '1' : '0.38';
   });
   btnEl.classList.add('selected');
-
   AudioEngine.playSelect();
-  State.decision = decision;
-  saveAnswer(decision).catch(() => {});
 
-  setTimeout(() => {
+  const isCorrect = opt.correcta === true;
+
+  // Acumular score
+  if (isCorrect) {
+    State.totalScore += opt.puntos;
+    State.scoreBreakdown.empatia += opt.empatia;
+    State.scoreBreakdown.asertividad += opt.asertividad;
+    State.scoreBreakdown.ie += opt.ie;
+    State.scoreBreakdown.cohesion += opt.cohesion;
+    State.answeredCount++;
+    State.allAnswers.push(opt);
+    document.getElementById('score-value').textContent = State.totalScore;
+  }
+
+  showFeedback(opt, isCorrect);
+}
+
+function showFeedback(opt, isCorrect) {
+  document.getElementById('decision-buttons').style.display = 'none';
+
+  const panel = document.getElementById('feedback-panel');
+  const iconEl = document.getElementById('feedback-icon');
+  const resultEl = document.getElementById('feedback-result');
+  const textEl = document.getElementById('feedback-text');
+  const retryBtn = document.getElementById('btn-retry');
+  const nextBtn = document.getElementById('btn-next-question');
+
+  if (isCorrect) {
+    panel.className = 'feedback-panel feedback-correct';
+    iconEl.textContent = '✓';
+    resultEl.textContent = `+${opt.puntos} puntos`;
+    AudioEngine.playChime();
+  } else {
+    panel.className = 'feedback-panel feedback-incorrect';
+    iconEl.textContent = '✗';
+    resultEl.textContent = `${opt.puntos} puntos`;
+    AudioEngine.playTimerWarn();
+  }
+
+  textEl.textContent = opt.feedback;
+
+  // Botones
+  retryBtn.classList.toggle('hidden', isCorrect);
+  nextBtn.classList.remove('hidden');
+
+  // Cambiar texto del "Siguiente" según contexto
+  const scene = getCurrentScene();
+  const isLastQ = State.questionIndex >= scene.preguntas.length - 1;
+  const isLastScene = State.sceneIndex >= State.caseData.escenarios.length - 1;
+  if (isLastQ && isLastScene) {
+    nextBtn.textContent = 'Ver Resultados →';
+  } else if (isLastQ) {
+    nextBtn.textContent = 'Siguiente Escena →';
+  } else {
+    nextBtn.textContent = 'Siguiente Pregunta →';
+  }
+
+  panel.classList.remove('hidden');
+
+  // Listeners (remover previos)
+  const newRetry = retryBtn.cloneNode(true);
+  const newNext = nextBtn.cloneNode(true);
+  retryBtn.parentNode.replaceChild(newRetry, retryBtn);
+  nextBtn.parentNode.replaceChild(newNext, nextBtn);
+
+  if (!isCorrect) {
+    newRetry.classList.remove('hidden');
+    newRetry.addEventListener('click', () => {
+      // Restar los puntos negativos que no acumulamos, solo volvemos a mostrar la pregunta
+      panel.classList.add('hidden');
+      document.getElementById('decision-buttons').style.display = '';
+      // Rehabilitar opciones
+      document.querySelectorAll('.btn-decision').forEach(b => {
+        b.disabled = false;
+        b.style.opacity = '1';
+        b.classList.remove('selected');
+      });
+    });
+  }
+
+  newNext.addEventListener('click', () => {
+    const scn = getCurrentScene();
+    const isLast = State.questionIndex >= scn.preguntas.length - 1;
+
+    if (isLast) {
+      showTransition();
+    } else {
+      State.questionIndex++;
+      renderCurrentQuestion();
+    }
+  });
+}
+
+function showTransition() {
+  const scene = getCurrentScene();
+  const isLastScene = State.sceneIndex >= State.caseData.escenarios.length - 1;
+
+  document.getElementById('feedback-panel')?.classList.add('hidden');
+  document.getElementById('decision-buttons').style.display = 'none';
+
+  if (isLastScene) {
     stopTimer();
     showResults();
-  }, 950);
+    return;
+  }
+
+  const panel = document.getElementById('transition-panel');
+  const textEl = document.getElementById('transition-text');
+  if (textEl) textEl.textContent = scene.transicion || '...';
+
+  panel.classList.remove('hidden');
+
+  const nextSceneBtn = document.getElementById('btn-next-scene');
+  const fresh = nextSceneBtn.cloneNode(true);
+  nextSceneBtn.parentNode.replaceChild(fresh, nextSceneBtn);
+  fresh.addEventListener('click', () => {
+    State.sceneIndex++;
+    State.questionIndex = 0;
+    panel.classList.add('hidden');
+    renderCurrentQuestion();
+    AudioEngine.playClick();
+  });
 }
 
 async function saveAnswer(d) {
@@ -415,24 +576,26 @@ function updateTimer(secs) {
 }
 
 // ============================================================
-// RESULTADOS
+// RESULTADOS (V2 — scores acumulados de todas las respuestas)
 // ============================================================
 function showResults() {
   showScreen('screen-results');
 
-  const d = State.decision;
-  if (!d) return;
-
+  const n = Math.max(1, State.answeredCount);
   const totals = {
-    empatia: d.empatia,
-    asertividad: d.asertividad,
-    ie: d.ie,
-    cohesion: d.cohesion,
+    empatia:     Math.round(State.scoreBreakdown.empatia / n),
+    asertividad: Math.round(State.scoreBreakdown.asertividad / n),
+    ie:          Math.round(State.scoreBreakdown.ie / n),
+    cohesion:    Math.round(State.scoreBreakdown.cohesion / n),
   };
 
-  // Código de equipo
+  // Código de equipo + puntaje total
   const teamEl = document.getElementById('results-team-code');
   if (teamEl) teamEl.textContent = State.teamCode;
+
+  // Mostrar puntaje total si hay elemento
+  const totalScoreEl = document.getElementById('results-total-score');
+  if (totalScoreEl) totalScoreEl.textContent = State.totalScore;
 
   // Tarjetas de puntuación
   [
@@ -447,12 +610,11 @@ function showResults() {
     if (bar) bar.textContent = val;
   });
 
-  // Barras animadas (max 10 por decisión)
+  // Barras animadas (max 10)
   setTimeout(() => {
-    const max = 10;
     ['empatia', 'asertividad', 'ie', 'cohesion'].forEach(dim => {
       const fill = document.getElementById(`bar-fill-${dim}`);
-      if (fill) fill.style.width = `${Math.min(100, (totals[dim] / max) * 100)}%`;
+      if (fill) fill.style.width = `${Math.min(100, (totals[dim] / 10) * 100)}%`;
     });
   }, 350);
 
@@ -462,10 +624,13 @@ function showResults() {
   // Gráfico radar
   setTimeout(() => renderRadar(totals), 700);
 
-  // Perfil de liderazgo — wow effect
+  // Perfil de liderazgo
   setTimeout(() => revealProfile(totals), 1300);
 
   // Guardar en Supabase
+  if (State.allAnswers.length > 0) {
+    State.allAnswers.forEach(a => saveAnswer(a).catch(() => {}));
+  }
   saveResults(totals).catch(() => {});
 }
 

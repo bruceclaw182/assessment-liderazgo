@@ -123,15 +123,16 @@
     </div>
 
     <!-- ═══════════════════════════════════════
-         PANTALLA: CASO
+         PANTALLA: CASO (V2 — 5 Escenas × 2 Preguntas)
     ═══════════════════════════════════════ -->
     <div id="screen-case" class="screen hidden">
       <div class="container">
 
-        <!-- Barra de progreso + timer -->
+        <!-- Barra de progreso + timer + score -->
         <div class="progress-container">
           <div class="progress-header">
-            <span class="progress-label">Caso <span id="current-case">—</span> de <span id="total-cases">6</span></span>
+            <span class="progress-label">Escena <span id="current-case">1</span> de <span id="total-cases">5</span></span>
+            <div class="score-display" id="score-display">Puntaje: <span id="score-value">0</span></div>
             <div class="timer-display">
               <svg class="timer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="10"/>
@@ -143,21 +144,42 @@
           <div class="progress-bar">
             <div id="progress-fill" class="progress-fill" style="width:0%"></div>
           </div>
+          <div style="font-size:0.7rem;color:#546e7a;margin-top:0.25rem;text-align:right" id="question-progress-label"></div>
         </div>
 
-        <!-- Caso -->
+        <!-- Titulo del caso + escena -->
         <div class="card-case">
           <div class="case-scenario">
-            <h3 id="case-title">Cargando caso...</h3>
-            <p id="case-description"></p>
+            <div id="case-badge" class="case-badge"></div>
+            <h3 id="case-title">Cargando...</h3>
+            <h4 id="scene-title" class="scene-title"></h4>
+            <p id="case-description" class="case-narrative"></p>
           </div>
           <div class="card-body">
-            <p id="case-question"></p>
+            <p id="case-question" class="question-text"></p>
           </div>
         </div>
 
-        <!-- Decisiones -->
+        <!-- Opciones -->
         <div id="decision-buttons" class="btn-group"></div>
+
+        <!-- Feedback panel (oculto hasta responder) -->
+        <div id="feedback-panel" class="feedback-panel hidden">
+          <div class="feedback-icon" id="feedback-icon"></div>
+          <div class="feedback-result" id="feedback-result"></div>
+          <p class="feedback-text" id="feedback-text"></p>
+          <div class="feedback-actions">
+            <button id="btn-retry" class="btn btn-retry hidden">↩ Intentar de nuevo</button>
+            <button id="btn-next-question" class="btn btn-primary hidden">Siguiente →</button>
+          </div>
+        </div>
+
+        <!-- Panel de transición entre escenas (oculto) -->
+        <div id="transition-panel" class="transition-panel hidden">
+          <div class="transition-icon">→</div>
+          <p class="transition-text" id="transition-text"></p>
+          <button id="btn-next-scene" class="btn btn-primary">Continuar →</button>
+        </div>
 
       </div>
     </div>
@@ -173,6 +195,7 @@
           <div class="results-header">
             <h1 class="results-title">¡Completado!</h1>
             <p class="results-subtitle">Equipo: <span id="results-team-code">—</span></p>
+            <p class="results-score-total">Puntaje final: <span id="results-total-score" style="color:#f57f17;font-weight:700">—</span> pts</p>
           </div>
 
           <!-- Tarjetas de puntuación -->
@@ -413,7 +436,7 @@
 
   <!-- App -->
   <script src="js/supabase.js"></script>
-  <script src="js/cases.js"></script>
+  <script src="js/cases_v2.js"></script>
   <script src="js/qr.js"></script>
   <script src="js/app.js"></script>
 </body>

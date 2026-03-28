@@ -986,3 +986,155 @@ input { font-family: var(--font-body); }
   .qr-card { border: 1px solid #ddd; break-inside: avoid; }
   .qr-grid { grid-template-columns: repeat(3, 1fr); }
 }
+
+/* ============================================================
+   V2 GAME ENGINE — Feedback, Score, Transición, Scene
+   ============================================================ */
+
+/* Score display en header */
+.score-display {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #f57f17;
+  background: rgba(245,127,23,0.1);
+  border: 1px solid rgba(245,127,23,0.25);
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+}
+
+/* Badge de tema del caso */
+.case-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #f57f17;
+  background: rgba(245,127,23,0.1);
+  border: 1px solid rgba(245,127,23,0.2);
+  padding: 0.2rem 0.5rem;
+  border-radius: 12px;
+  margin-bottom: 0.5rem;
+}
+
+/* Título de escena */
+.scene-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.55);
+  margin: 0.2rem 0 0.75rem;
+  letter-spacing: 0.01em;
+}
+
+/* Narrativa larga — scrollable si es muy larga */
+.case-narrative {
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.72);
+  white-space: pre-line;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+.case-narrative::-webkit-scrollbar { width: 3px; }
+.case-narrative::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+
+/* Texto de pregunta */
+.question-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.5;
+}
+
+/* ── Feedback panel ── */
+.feedback-panel {
+  margin-top: 1rem;
+  padding: 1.25rem;
+  border-radius: 12px;
+  border: 1px solid;
+  animation: fadeInUp 0.3s ease;
+}
+
+.feedback-correct {
+  background: rgba(76,175,80,0.08);
+  border-color: rgba(76,175,80,0.35);
+}
+
+.feedback-incorrect {
+  background: rgba(244,67,54,0.08);
+  border-color: rgba(244,67,54,0.3);
+}
+
+.feedback-icon {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.feedback-correct .feedback-icon { color: #4caf50; }
+.feedback-incorrect .feedback-icon { color: #ef5350; }
+
+.feedback-result {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.feedback-correct .feedback-result { color: #4caf50; }
+.feedback-incorrect .feedback-result { color: #ef5350; }
+
+.feedback-text {
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.72);
+  margin-bottom: 1rem;
+}
+
+.feedback-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* Botón retry */
+.btn-retry {
+  background: transparent;
+  border: 1px solid rgba(244,67,54,0.45);
+  color: #ef9a9a;
+  padding: 0.5rem 1rem;
+  font-size: 0.82rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-retry:hover {
+  background: rgba(244,67,54,0.12);
+  border-color: rgba(244,67,54,0.7);
+}
+
+/* ── Transition panel ── */
+.transition-panel {
+  margin-top: 1rem;
+  padding: 1.5rem;
+  background: rgba(245,127,23,0.05);
+  border: 1px solid rgba(245,127,23,0.2);
+  border-radius: 12px;
+  text-align: center;
+  animation: fadeInUp 0.4s ease;
+}
+
+.transition-icon {
+  font-size: 1.5rem;
+  color: #f57f17;
+  margin-bottom: 0.75rem;
+}
+
+.transition-text {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.55;
+  margin-bottom: 1.25rem;
+}
