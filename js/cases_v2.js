@@ -333,7 +333,7 @@ const CASOS = [
       {
         id: 2,
         titulo: "Escena 2: Las grietas",
-        narrativa: "Han pasado tres semanas. El equipo está funcionando al 130% —mejor de lo esperado pero aún por debajo del 147%. Has implementado turnos extra optativos pagados a1.5x y un programa defood allowance para los que se quedan más tiempo.\n\nPero hoy recibes dos mensajes casi simultáneos.\n\nEl primero es de Miguel Ángel —tu líder de turno nocturno: 'Tengo un problema. Duvan Felipe Arenas, uno de mis operadores nuevos, lleva tres noches sin presentarse al turno. No contesta el teléfono. No ha llamado. Solo apareció una vez en 8 días.'\n\nEl segundo es de Duvan Felipe himself: 'Jefe, necesito hablar con usted. No es fácil escribir esto. Estoy en un lugar muy oscuro. No quiero hacer nada pero no quiero estar vivo.'"
+        narrativa: "Han pasado tres semanas. El equipo está funcionando al 130% —mejor de lo esperado pero aún por debajo del 147%. Has implementado turnos extra optativos pagados a1.5x y un programa defood allowance para los que se quedan más tiempo.\n\nPero hoy recibes dos mensajes casi simultáneos.\n\nEl primero es de Miguel Ángel —tu líder de turno nocturno: 'Tengo un problema. Duvan Felipe Arenas, uno de mis operadores nuevos, lleva tres noches sin presentarse al turno. No contesta el teléfono. No ha llamado. Solo apareció una vez en 8 días.'\n\nEl segundo es de Duvan Felipe himself: 'Jefe, necesito hablar con usted. No es fácil escribir esto. Estoy en un lugar muy oscuro. No quiero hacer nada pero no quiero estar vivo.'",
         preguntas: [
           {
             id: 1,
