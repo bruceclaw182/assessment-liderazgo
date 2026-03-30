@@ -1131,6 +1131,234 @@ input { font-family: var(--font-body); }
   margin-bottom: 0.75rem;
 }
 
+/* ============================================================
+   WELCOME SCREEN V2 — Cinematic Redesign
+   ============================================================ */
+
+/* Pantalla base */
+#screen-welcome {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 30%, #1a237e22 0%, #0a0e1a 60%),
+              linear-gradient(180deg, #0a0e1a 0%, #0d1433 50%, #0a0e1a 100%);
+}
+
+/* ── Partículas ── */
+.wv-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wv-p {
+  position: absolute;
+  bottom: -8px;
+  border-radius: 50%;
+  opacity: 0;
+  animation: wvFloat linear infinite;
+}
+
+@keyframes wvFloat {
+  0%   { transform: translateY(0) scale(1);   opacity: 0; }
+  10%  { opacity: 0.7; }
+  85%  { opacity: 0.3; }
+  100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+}
+
+/* ── Contenedor principal ── */
+.wv-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2.5rem 1.5rem 3rem;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* ── Hero SVG ── */
+.wv-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 24px rgba(245,127,23,0.2));
+}
+
+/* Anillo exterior giratorio */
+.wv-ring-outer {
+  transform-origin: 80px 80px;
+  animation: wvRotate 20s linear infinite;
+}
+
+/* Anillo medio pulsante */
+.wv-ring-mid {
+  transform-origin: 80px 80px;
+  animation: wvPulseRing 3s ease-in-out infinite;
+}
+
+/* Luz en la cima */
+.wv-peak-glow {
+  animation: wvGlowPulse 2s ease-in-out infinite;
+}
+
+/* Rayos */
+.wv-ray {
+  animation: wvRayPulse 2s ease-in-out infinite;
+}
+
+@keyframes wvRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes wvPulseRing {
+  0%, 100% { opacity: 0.3; r: 56; }
+  50%       { opacity: 0.6; r: 58; }
+}
+
+@keyframes wvGlowPulse {
+  0%, 100% { opacity: 0.95; r: 4; filter: none; }
+  50%       { opacity: 1;    r: 5.5; filter: drop-shadow(0 0 6px #f57f17); }
+}
+
+@keyframes wvRayPulse {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 0.9; }
+}
+
+/* ── Texto ── */
+.wv-title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 7vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+.wv-accent {
+  color: var(--color-accent);
+  display: block;
+}
+
+.wv-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.6;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/* ── Botones ── */
+.wv-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.wv-btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #f57f17, #ffb300);
+  color: #0a0e1a;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(245,127,23,0.4);
+  animation: wvBtnGlow 2.5s ease-in-out infinite;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.wv-btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(245,127,23,0.55);
+}
+
+.wv-btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+@keyframes wvBtnGlow {
+  0%, 100% { box-shadow: 0 4px 24px rgba(245,127,23,0.4); }
+  50%       { box-shadow: 0 4px 36px rgba(245,127,23,0.7); }
+}
+
+.wv-btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  background: transparent;
+  color: rgba(255,255,255,0.55);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.wv-btn-secondary:hover {
+  color: rgba(255,255,255,0.85);
+  border-color: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.05);
+}
+
+/* ── Desktop fix ── */
+@media (min-width: 768px) {
+  #screen-welcome {
+    background: radial-gradient(ellipse at 50% 25%, #1a237e30 0%, #0a0e1a 55%),
+                linear-gradient(180deg, #0a0e1a 0%, #0d1433 50%, #0a0e1a 100%);
+  }
+  .wv-container {
+    gap: 2rem;
+    padding: 3rem 2rem 4rem;
+    max-width: 460px;
+  }
+  .wv-hero svg {
+    width: 180px;
+    height: 180px;
+  }
+  .wv-title {
+    font-size: 2.6rem;
+  }
+  .wv-actions {
+    max-width: 320px;
+  }
+  .wv-btn-primary {
+    padding: 1.1rem 2rem;
+    font-size: 1.05rem;
+  }
+}
+
+/* ── Ocultar pantalla anterior invisible ── */
+#screen-welcome .welcome-screen { display: none; }
+
 .transition-text {
   font-size: 0.85rem;
   font-style: italic;

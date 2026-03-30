@@ -30,20 +30,89 @@
          PANTALLA: BIENVENIDA
     ═══════════════════════════════════════ -->
     <div id="screen-welcome" class="screen">
-      <div class="welcome-screen">
-        <svg class="welcome-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="45" fill="#1a237e"/>
-          <circle cx="50" cy="50" r="28" fill="none" stroke="#f57f17" stroke-width="4" opacity="0.4"/>
-          <path d="M50 18 L60 42 L50 36 L40 42 Z" fill="#f57f17"/>
-          <circle cx="50" cy="62" r="12" fill="#f57f17" opacity="0.9"/>
-        </svg>
-        <h1 class="welcome-title">Assessment de Liderazgo</h1>
-        <p class="welcome-subtitle">Descubre tu estilo de liderazgo en situaciones reales de alto impacto</p>
-        <div class="btn-group" style="max-width:300px;width:100%">
-          <button id="btn-start-assessment" class="btn btn-primary btn-block">Comenzar Assessment</button>
-          <button id="btn-facilitator-view" class="btn btn-secondary btn-block">Vista Facilitador</button>
-        </div>
+
+      <!-- Partículas de fondo -->
+      <div class="wv-particles" aria-hidden="true">
+        <span class="wv-p" style="left:5%;width:3px;height:3px;animation-delay:0s;animation-duration:6s;background:#f57f17"></span>
+        <span class="wv-p" style="left:12%;width:2px;height:2px;animation-delay:1.2s;animation-duration:8s;background:#5c6bc0"></span>
+        <span class="wv-p" style="left:22%;width:4px;height:4px;animation-delay:0.5s;animation-duration:7s;background:#f57f17;opacity:0.4"></span>
+        <span class="wv-p" style="left:35%;width:2px;height:2px;animation-delay:2s;animation-duration:9s;background:#fff;opacity:0.3"></span>
+        <span class="wv-p" style="left:48%;width:3px;height:3px;animation-delay:0.8s;animation-duration:6.5s;background:#5c6bc0"></span>
+        <span class="wv-p" style="left:58%;width:2px;height:2px;animation-delay:3s;animation-duration:8s;background:#f57f17;opacity:0.5"></span>
+        <span class="wv-p" style="left:67%;width:5px;height:5px;animation-delay:1.5s;animation-duration:10s;background:#1a237e;opacity:0.8"></span>
+        <span class="wv-p" style="left:75%;width:2px;height:2px;animation-delay:0.3s;animation-duration:7.5s;background:#fff;opacity:0.25"></span>
+        <span class="wv-p" style="left:83%;width:3px;height:3px;animation-delay:2.5s;animation-duration:6s;background:#f57f17;opacity:0.6"></span>
+        <span class="wv-p" style="left:91%;width:2px;height:2px;animation-delay:1s;animation-duration:9s;background:#5c6bc0;opacity:0.5"></span>
+        <span class="wv-p" style="left:18%;width:2px;height:2px;animation-delay:4s;animation-duration:11s;background:#f57f17;opacity:0.3"></span>
+        <span class="wv-p" style="left:42%;width:3px;height:3px;animation-delay:3.5s;animation-duration:8.5s;background:#fff;opacity:0.2"></span>
+        <span class="wv-p" style="left:72%;width:2px;height:2px;animation-delay:2.2s;animation-duration:7s;background:#f57f17;opacity:0.4"></span>
+        <span class="wv-p" style="left:88%;width:4px;height:4px;animation-delay:0.7s;animation-duration:12s;background:#5c6bc0;opacity:0.3"></span>
+        <span class="wv-p" style="left:55%;width:2px;height:2px;animation-delay:5s;animation-duration:9.5s;background:#fff;opacity:0.15"></span>
       </div>
+
+      <!-- Contenido principal -->
+      <div class="wv-container">
+
+        <!-- Hero SVG -->
+        <div class="wv-hero" id="wv-hero">
+          <svg viewBox="0 0 160 160" width="160" height="160" xmlns="http://www.w3.org/2000/svg">
+            <!-- Anillo exterior giratorio -->
+            <circle class="wv-ring-outer" cx="80" cy="80" r="72" fill="none" stroke="#f57f17" stroke-width="1" stroke-dasharray="8 6" opacity="0.25"/>
+            <!-- Anillo medio pulsante -->
+            <circle class="wv-ring-mid" cx="80" cy="80" r="56" fill="none" stroke="#5c6bc0" stroke-width="1.5" opacity="0.3"/>
+            <!-- Fondo círculo principal -->
+            <circle cx="80" cy="80" r="44" fill="#0d1433"/>
+            <circle cx="80" cy="80" r="44" fill="url(#wvGrad1)"/>
+            <!-- Montaña / pico -->
+            <polygon points="80,34 104,78 56,78" fill="#1a237e" opacity="0.9"/>
+            <polygon points="80,34 92,60 80,55 68,60" fill="#283593"/>
+            <!-- Luz en la cima -->
+            <circle cx="80" cy="34" r="4" fill="#f57f17" class="wv-peak-glow"/>
+            <!-- Rayos de la cima -->
+            <line x1="80" y1="28" x2="80" y2="18" stroke="#f57f17" stroke-width="1.5" opacity="0.6" class="wv-ray"/>
+            <line x1="87" y1="30" x2="94" y2="22" stroke="#f57f17" stroke-width="1.5" opacity="0.4" class="wv-ray"/>
+            <line x1="73" y1="30" x2="66" y2="22" stroke="#f57f17" stroke-width="1.5" opacity="0.4" class="wv-ray"/>
+            <line x1="90" y1="34" x2="100" y2="34" stroke="#f57f17" stroke-width="1" opacity="0.3" class="wv-ray"/>
+            <line x1="70" y1="34" x2="60" y2="34" stroke="#f57f17" stroke-width="1" opacity="0.3" class="wv-ray"/>
+            <!-- Base / tierra -->
+            <rect x="48" y="78" width="64" height="4" rx="2" fill="#1a237e" opacity="0.7"/>
+            <!-- Figura humana en la cima -->
+            <circle cx="80" cy="30" r="3.5" fill="#f57f17" opacity="0.95"/>
+            <line x1="80" y1="33" x2="80" y2="42" stroke="#f57f17" stroke-width="2" opacity="0.9"/>
+            <line x1="74" y1="37" x2="86" y2="37" stroke="#f57f17" stroke-width="1.5" opacity="0.8"/>
+            <!-- Gradientes -->
+            <defs>
+              <radialGradient id="wvGrad1" cx="50%" cy="40%" r="60%">
+                <stop offset="0%" stop-color="#1a237e" stop-opacity="0.8"/>
+                <stop offset="100%" stop-color="#0a0e1a" stop-opacity="0.9"/>
+              </radialGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <!-- Texto -->
+        <div class="wv-text" id="wv-text">
+          <h1 class="wv-title" id="wv-title">
+            Assessment de<br><span class="wv-accent">Liderazgo</span>
+          </h1>
+          <p class="wv-subtitle" id="wv-subtitle">
+            Descubre tu estilo en situaciones reales de alto impacto
+          </p>
+        </div>
+
+        <!-- Botones -->
+        <div class="wv-actions" id="wv-actions">
+          <button id="btn-start-assessment" class="wv-btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Comenzar Assessment
+          </button>
+          <button id="btn-facilitator-view" class="wv-btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Vista Facilitador
+          </button>
+        </div>
+
+      </div><!-- /wv-container -->
     </div>
 
     <!-- ═══════════════════════════════════════
@@ -433,11 +502,100 @@
 
   <!-- Chart.js para radar -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
   <!-- App -->
   <script src="js/supabase.js"></script>
   <script src="js/cases_v2.js"></script>
   <script src="js/qr.js"></script>
   <script src="js/app.js"></script>
+
+  <!-- Welcome Screen: animaciones + audio -->
+  <script>
+  (function() {
+    const SFX_URL   = 'https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3';
+    const MUSIC_URL = 'https://assets.mixkit.co/music/724/724.mp3';
+
+    let audioUnlocked = false;
+    let music = null;
+
+    function unlockAudio() {
+      if (audioUnlocked) return;
+      audioUnlocked = true;
+
+      // SFX de entrada — una sola vez
+      const sfx = new Audio(SFX_URL);
+      sfx.volume = 0.5;
+      sfx.play().catch(() => {});
+
+      // Música ambiente — loop suave
+      music = new Audio(MUSIC_URL);
+      music.volume = 0.08;
+      music.loop = true;
+      music.play().catch(() => {});
+    }
+
+    // Desbloquear audio en primer toque/click
+    document.addEventListener('click',      unlockAudio, { once: true });
+    document.addEventListener('touchstart', unlockAudio, { once: true });
+
+    // Detener música al salir de la welcome screen
+    document.addEventListener('DOMContentLoaded', function() {
+      const btnStart = document.getElementById('btn-start-assessment');
+      const btnFacil = document.getElementById('btn-facilitator-view');
+
+      function fadeOutMusic() {
+        if (!music) return;
+        const fade = setInterval(() => {
+          if (music.volume > 0.005) {
+            music.volume = Math.max(0, music.volume - 0.005);
+          } else {
+            music.pause();
+            clearInterval(fade);
+          }
+        }, 60);
+      }
+
+      if (btnStart) btnStart.addEventListener('click', fadeOutMusic);
+      if (btnFacil) btnFacil.addEventListener('click', fadeOutMusic);
+    });
+
+    // GSAP entrance — ejecutar cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof gsap === 'undefined') return;
+
+      // Estado inicial — todo invisible
+      gsap.set('#wv-hero',    { opacity: 0, scale: 0.5 });
+      gsap.set('#wv-title',   { opacity: 0, y: 35 });
+      gsap.set('#wv-subtitle',{ opacity: 0, y: 25 });
+      gsap.set('#wv-actions', { opacity: 0, y: 25 });
+
+      // Timeline de entrada
+      const tl = gsap.timeline({ delay: 0.2 });
+
+      tl.to('#wv-hero', {
+        opacity: 1, scale: 1,
+        duration: 0.9,
+        ease: 'back.out(1.4)'
+      })
+      .to('#wv-title', {
+        opacity: 1, y: 0,
+        duration: 0.6,
+        ease: 'power3.out'
+      }, '-=0.4')
+      .to('#wv-subtitle', {
+        opacity: 1, y: 0,
+        duration: 0.5,
+        ease: 'power2.out'
+      }, '-=0.3')
+      .to('#wv-actions', {
+        opacity: 1, y: 0,
+        duration: 0.5,
+        ease: 'power2.out'
+      }, '-=0.25');
+    });
+  })();
+  </script>
 </body>
 </html>
