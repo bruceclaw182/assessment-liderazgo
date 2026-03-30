@@ -585,8 +585,8 @@ function showFeedback(opt, isCorrect) {
 
   textEl.textContent = opt.feedback;
 
-  // Botones
-  retryBtn.classList.toggle('hidden', isCorrect);
+  // Botones — retry eliminado, solo "Siguiente"
+  retryBtn.classList.add('hidden');
   nextBtn.classList.remove('hidden');
 
   // Cambiar texto del "Siguiente" según contexto
@@ -609,20 +609,7 @@ function showFeedback(opt, isCorrect) {
   retryBtn.parentNode.replaceChild(newRetry, retryBtn);
   nextBtn.parentNode.replaceChild(newNext, nextBtn);
 
-  if (!isCorrect) {
-    newRetry.classList.remove('hidden');
-    newRetry.addEventListener('click', () => {
-      // Restar los puntos negativos que no acumulamos, solo volvemos a mostrar la pregunta
-      panel.classList.add('hidden');
-      document.getElementById('decision-buttons').style.display = '';
-      // Rehabilitar opciones
-      document.querySelectorAll('.btn-decision').forEach(b => {
-        b.disabled = false;
-        b.style.opacity = '1';
-        b.classList.remove('selected');
-      });
-    });
-  }
+  // Sin retry — una respuesta por pregunta, resultado definitivo
 
   newNext.addEventListener('click', () => {
     const scn = getCurrentScene();
