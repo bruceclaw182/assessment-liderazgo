@@ -1338,17 +1338,17 @@ input { font-family: var(--font-body); }
   .wv-container {
     gap: 2rem;
     padding: 3rem 2rem 4rem;
-    max-width: 460px;
+    max-width: 500px;
   }
   .wv-hero svg {
-    width: 180px;
-    height: 180px;
+    width: 200px;
+    height: 200px;
   }
   .wv-title {
-    font-size: 2.6rem;
+    font-size: 2.8rem;
   }
   .wv-actions {
-    max-width: 320px;
+    max-width: 340px;
   }
   .wv-btn-primary {
     padding: 1.1rem 2rem;
@@ -1356,8 +1356,187 @@ input { font-family: var(--font-body); }
   }
 }
 
+@media (min-width: 1200px) {
+  .wv-container {
+    max-width: 580px;
+    gap: 2.5rem;
+    padding: 4rem 2rem 5rem;
+  }
+  .wv-hero svg {
+    width: 240px;
+    height: 240px;
+  }
+  .wv-title {
+    font-size: 3.4rem;
+  }
+  .wv-subtitle {
+    font-size: 1.15rem;
+  }
+  .wv-actions {
+    max-width: 380px;
+    gap: 1rem;
+  }
+  .wv-btn-primary {
+    padding: 1.2rem 2.5rem;
+    font-size: 1.1rem;
+  }
+  .wv-btn-secondary {
+    font-size: 1rem;
+  }
+}
+
 /* ── Ocultar pantalla anterior invisible ── */
 #screen-welcome .welcome-screen { display: none; }
+
+/* ============================================================
+   INTERNAL SCREENS — Global Atmosphere Fix
+   ============================================================ */
+
+/* Fondo consistente en todas las pantallas */
+#screen-team-code,
+#screen-instructions,
+#screen-case,
+#screen-results,
+#screen-facilitator,
+#screen-qr-print {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(26,35,126,0.18) 0%, transparent 65%),
+    linear-gradient(180deg, #0a0e1a 0%, #0d1433 50%, #0a0e1a 100%);
+}
+
+/* Centrado vertical para pantallas de contenido corto */
+#screen-team-code,
+#screen-instructions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#screen-team-code .container,
+#screen-instructions .container {
+  padding-top: 0;
+  padding-bottom: 0;
+  width: 100%;
+}
+
+#screen-team-code .card,
+#screen-instructions .card {
+  margin-top: 0;
+  background: rgba(20, 25, 41, 0.95);
+  border: 1px solid rgba(26,35,126,0.4);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+}
+
+/* Mejorar card-header en pantallas internas */
+#screen-team-code .card-header h2,
+#screen-instructions .card-header h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+/* Input mejorado */
+.team-code-input {
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* Case screen — barra de progreso mejorada */
+.progress-container {
+  background: rgba(10,14,26,0.8);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 0.75rem 1rem 0.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Case card mejorada */
+.card-case {
+  background: linear-gradient(145deg, rgba(26,35,126,0.28) 0%, rgba(20,25,41,0.98) 100%) !important;
+  border: 1px solid rgba(26,35,126,0.5) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05) !important;
+}
+
+.case-narrative {
+  font-size: 0.95rem !important;
+  line-height: 1.9 !important;
+  color: rgba(255,255,255,0.8) !important;
+}
+
+/* Botones de decisión */
+.btn-decision {
+  width: 100%;
+  padding: 0.9rem 1.25rem !important;
+  background: rgba(26,35,126,0.15) !important;
+  border: 1px solid rgba(26,35,126,0.4) !important;
+  border-radius: var(--radius-md) !important;
+  color: rgba(255,255,255,0.85) !important;
+  font-size: 0.9rem !important;
+  text-align: left !important;
+  line-height: 1.5 !important;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s !important;
+  margin-bottom: 0.6rem !important;
+}
+
+.btn-decision:hover {
+  background: rgba(26,35,126,0.35) !important;
+  border-color: rgba(245,127,23,0.4) !important;
+  transform: translateX(3px) !important;
+}
+
+/* Results screen */
+.results-title {
+  font-size: clamp(2rem, 8vw, 2.8rem) !important;
+  font-weight: 800 !important;
+  background: linear-gradient(135deg, #f57f17, #ffb300);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.result-card {
+  background: rgba(20,25,41,0.95) !important;
+  border: 1px solid rgba(255,255,255,0.07) !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.result-card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.4) !important;
+}
+
+/* Feedback panel mejorado */
+.feedback-panel {
+  background: rgba(20,25,41,0.95) !important;
+  border-radius: var(--radius-lg) !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4) !important;
+  padding: 1.5rem !important;
+  margin-top: 1rem !important;
+}
+
+/* Transition panel mejorado */
+.transition-panel {
+  background: linear-gradient(135deg, rgba(26,35,126,0.25), rgba(20,25,41,0.95)) !important;
+  border: 1px solid rgba(245,127,23,0.25) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(245,127,23,0.1) !important;
+}
+
+/* Score display */
+.score-display {
+  background: rgba(245,127,23,0.12) !important;
+  border: 1px solid rgba(245,127,23,0.3) !important;
+  border-radius: var(--radius-full) !important;
+  padding: 0.2rem 0.75rem !important;
+  font-weight: 700 !important;
+  font-size: 0.8rem !important;
+  color: var(--color-accent) !important;
+}
 
 .transition-text {
   font-size: 0.85rem;
