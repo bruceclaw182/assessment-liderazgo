@@ -172,7 +172,7 @@ A las 9:47 p.m., Marcela leyó ese correo en su pantalla y sintió que el suelo 
                               },
                               {
                                 letra: "C",
-                                texto: "Ignorar el comentario de Andrés ya que viene de un técnico junior que probablemente misunderstande la dinámica y no tiene suficiente perspectiva.",
+                                texto: "Ignorar el comentario de Andrés ya que viene de un técnico junior que probablemente malinterpreta la dinámica y no tiene suficiente perspectiva.",
                                 correcta: false,
                                 puntos: -5,
                                 feedback: "Descartar información por la jerarquía de quien la ofrece es exactamente lo que crea culturas tóxicas. Andrés estaba en campo. Su perspectiva es relevante precisamente porque está en la operación.",
@@ -213,7 +213,7 @@ Lo que siguió fue una hora que ninguno de los dos olvidaría. No por lo que se 
                                 texto: "Permitir que Roberto termine su exposición completa antes de intervenir, porque interrumpir sería deslegitimar su voz y él necesita sentirse oído.",
                                 correcta: false,
                                 puntos: -5,
-                                feedback: "En una mediación de alta tensión, un monólogo técnico de 15 minutos no разрешает, consagra. Marcela se apagará emocionalmente y el espacio se polarizará aún más. Hay que intervenir antes del daño.",
+                                feedback: "En una mediación de alta tensión, un monólogo técnico de 15 minutos no resuelve, consagra. Marcela se apagará emocionalmente y el espacio se polarizará aún más. Hay que intervenir antes del daño.",
                                 empatia: 3, asertividad: 4, ie: 3, cohesion: 2
                               },
                               {
@@ -251,7 +251,7 @@ Lo que siguió fue una hora que ninguno de los dos olvidaría. No por lo que se 
                                 texto: "Tomar la palabra y decirle a Roberto: '¿Ves lo que pasa cuando convertimos las diferencias en batallas? Esto le pasa a la gente.' — usar el momento para hacer un punto educativo.",
                                 correcta: false,
                                 puntos: -5,
-                                feedback: "Usar las lágrimas de Marcela como 'momento Lehr' para Roberto es instrumentalizarla. La convierte en ejemplo, no en persona. Y Roberto se puto más defensivo, no más empático.",
+                                feedback: "Usar las lágrimas de Marcela como 'momento Lehr' para Roberto es instrumentalizarla. La convierte en ejemplo, no en persona. Y Roberto se vuelve más defensivo, no más empático.",
                                 empatia: 2, asertividad: 4, ie: 3, cohesion: 2
                               },
                               {
@@ -860,7 +860,7 @@ Valentina escuchó. Lo que Paola necesitaba no era un protocolo. Lo que necesita
                               },
                               {
                                 letra: "C",
-                                texto: "Coordenar con el director de planta una licencia médica temporal 'por asuntos personales' para darle espacio sin explicarle a la organización por qué.",
+                                texto: "Coordinar con el director de planta una licencia médica temporal 'por asuntos personales' para darle espacio sin explicarle a la organización por qué.",
                                 correcta: false,
                                 puntos: -5,
                                 feedback: "La licencia es buen recurso, pero sin el componente profesional no resuelve. Y si el director no sabe por qué, cualquier rumor en la planta puede dañar la reputación de Carlos. La información privilegiada necesita manejo cuidadoso.",
@@ -919,7 +919,7 @@ Ocho meses después, Carlos fue reconocido en la junta de cierre anual como uno 
                                 texto: "Negociar con el director de planta flexibilidad horaria permanente para Carlos, documentada formalmente, para que pudiera asistir a terapia sin estigma ni consecuencias.",
                                 correcta: false,
                                 puntos: -5,
-                                feedback: "La flexibilidad horaria es buena, pero si no se acompaña de cambio cultural, se convierte en privilegio个别 en lugar de política. Y puede generar resentimiento en otros empleados que no tienen el mismo 'beneficio'.",
+                                feedback: "La flexibilidad horaria es buena, pero si no se acompaña de cambio cultural, se convierte en privilegio individual en lugar de política. Y puede generar resentimiento en otros empleados que no tienen el mismo 'beneficio'.",
                                 empatia: 5, asertividad: 5, ie: 5, cohesion: 4
                               },
                               {
@@ -1637,7 +1637,7 @@ En la cuarta semana, el directorio nacional anunció una auditoría de cumplimie
                   ]
                 }
           ],
-          transicion: "Sebastián took on the customer documentation project with a fire that surprised everyone — including Valentina. He stayed late three nights in a row building a database that had never existed. When he presented his first deliverable to the team, Marcela looked at the screen for a long moment and said: 'This is good work.' It was the first time anyone in that room had acknowledged anything from anyone else in 14 months. Roberto noticed. So did Valentina."
+          transicion: "Sebastián asumió el proyecto de documentación de clientes con una energía que sorprendió a todos, incluso a Valentina. Se quedó hasta tarde tres noches seguidas construyendo una base de datos que nunca había existido. Cuando presentó su primer entregable al equipo, Marcela miró la pantalla un largo momento y dijo: 'Esto es buen trabajo.' Era la primera vez en 14 meses que alguien en esa sala reconocía el trabajo de otra persona. Roberto lo notó. Valentina también."
         },
         {
           id: 3,
@@ -2206,10 +2206,10 @@ Y eso, Carlos lo sabía, no se arreglaba con un incremento salarial.`,
                   opciones: [
                               {
                                 letra: "A",
-                                texto: "'Lucía, tienes razón. Y lo que te digo ahora no es para que te quedes — es para que sepas la verdad: el sistema no te reconoció porque no sabe reconocerte. Y eso me hace accountable a mí también.'",
+                                texto: "'Lucía, tienes razón. Y lo que te digo ahora no es para que te quedes — es para que sepas la verdad: el sistema no te reconoció porque no sabe reconocerte. Y eso me hace responsable a mí también.'",
                                 correcta: true,
                                 puntos: 10,
-                                feedback: "Carlos necesita hold two truths simultaneously: the decision was correct by the system's criteria, and the system failed to capture what Lucía actually contributed. Owning the accountability without making excuses is the only response that preserves the relationship.",
+                                feedback: "Carlos necesita sostener dos verdades a la vez: la decisión fue correcta según los criterios del sistema, y el sistema falló al no capturar lo que Lucía realmente aportó. Asumir la responsabilidad sin excusas es la única respuesta que preserva la relación.",
                                 empatia: 9, asertividad: 9, ie: 9, cohesion: 9
                               },
                               {
@@ -2425,7 +2425,7 @@ No fue suficiente para borrar el día en que Carlos le dijo que no. Pero fue suf
                                 texto: "Un caso que demuestra que el talento informal (Lucía) es más valioso que el talento formal (Felipe).",
                                 correcta: false,
                                 puntos: -5,
-                                feedback: "Esto es tan reduccionista como decir que los números son lo único que importa. Felipe tiene talents que Lucía no tiene. El verdadero aprendizaje es que un sistema que solo puede ver uno de los dos está broken.",
+                                feedback: "Esto es tan reduccionista como decir que los números son lo único que importa. Felipe tiene talentos que Lucía no tiene. El verdadero aprendizaje es que un sistema que solo puede ver uno de los dos está incompleto.",
                                 empatia: 5, asertividad: 4, ie: 5, cohesion: 5
                               }
                   ]
@@ -2511,7 +2511,7 @@ Sebastián no tenía una respuesta.`,
                                 texto: "Ir directamente al grupo de WhatsApp y decir: 'Soy Sebastián. El rumor que están compartiendo es falso. Si alguien tiene un problema conmigo o con Marcela, me puede hablar directamente.'",
                                 correcta: false,
                                 puntos: -5,
-                                feedback: "Esto es confrontación sin preparación que casi certainly backfires. En un grupo de 14 personas donde Sebastián no está, su mensaje puede sentirse como amenaza — lo cual solidifica la narrativa en lugar de debilitarla.",
+                                feedback: "Esto es confrontación sin preparación que casi con certeza se vuelve en su contra. En un grupo de 14 personas donde Sebastián no está, su mensaje puede sentirse como amenaza — lo cual solidifica la narrativa en lugar de debilitarla.",
                                 empatia: 3, asertividad: 6, ie: 4, cohesion: 3
                               },
                               {
@@ -2519,7 +2519,7 @@ Sebastián no tenía una respuesta.`,
                                 texto: "Primero hablar con Marcela para preguntarle cómo quiere que se maneje. Simultáneamente, consultar a RRHH de manera confidencial para entender las opciones institucionales disponibles antes de tomar cualquier acción pública.",
                                 correcta: true,
                                 puntos: 10,
-                                feedback: "Esto es double-track leadership: mantener a la persona afectada en el centro de la decisión mientras se exploran recursos institucionales en paralelo. Consultar a RRHH antes de actuar no es delación — es inteligencia. Pero siempre con Marcela sabiendo lo que se hace.",
+                                feedback: "Esto es liderazgo de doble vía: mantener a la persona afectada en el centro de la decisión mientras se exploran recursos institucionales en paralelo. Consultar a RRHH antes de actuar no es delación — es inteligencia. Pero siempre con Marcela sabiendo lo que se hace.",
                                 empatia: 9, asertividad: 8, ie: 9, cohesion: 8
                               },
                               {
@@ -2527,7 +2527,7 @@ Sebastián no tenía una respuesta.`,
                                 texto: "Hablar con Jorge — el junior que envió la captura a Marcela — primero, para entender cómo se enteró y quién inició el rumor antes de escalar.",
                                 correcta: false,
                                 puntos: -5,
-                                feedback: "Ir donde Jorge antes de tener un plan puede generate problemas: si Jorge se entera de que Sebastián está investigando, puede warn a otros. Y sin protección formal de RRHH, Jorge puede perceive being called a 'rumor source' como un ataque.",
+                                feedback: "Ir donde Jorge antes de tener un plan puede generar problemas: si Jorge se entera de que Sebastián está investigando, puede alertar a otros. Y sin protección formal de RRHH, Jorge puede interpretar ser señalado como 'fuente del rumor' como un ataque directo.",
                                 empatia: 5, asertividad: 4, ie: 5, cohesion: 4
                               },
                               {
@@ -2713,7 +2713,7 @@ Sebastián tenía ahora un origen confirmado y un dilema: ¿qué hacer con Felip
                                 texto: "'No pensaste que era sobre Sebastián — pero sí sabías que era sobre Marcela. Y aunque no fuera sobre mí, era sobre alguien que trabaja para esta empresa. ¿Por qué no dijiste nada?'",
                                 correcta: true,
                                 puntos: 10,
-                                feedback: "Esta es la pregunta correcta. Sebastián está manteniendo a Felipe accountable por no haber actuado cuando tuvo la oportunidad — no importa que el blanco fuera wrong, importa que dañó a alguien. Eso es responsabilidad pessoal independiente del blanco del rumor.",
+                                feedback: "Esta es la pregunta correcta. Sebastián está haciendo responsable a Felipe por no haber actuado cuando tuvo la oportunidad — no importa que el blanco fuera incorrecto, importa que dañó a alguien. Eso es responsabilidad personal independiente del blanco del rumor.",
                                 empatia: 7, asertividad: 9, ie: 8, cohesion: 8
                               },
                               {
@@ -2729,7 +2729,7 @@ Sebastián tenía ahora un origen confirmado y un dilema: ¿qué hacer con Felip
                                 texto: "'Está bien, Felipe. No hiciste nada mal directamente. Pero necesito que a partir de ahora, si escuchas algo así, lo reportes.'",
                                 correcta: false,
                                 puntos: -5,
-                                feedback: "Esto cierra la conversación sin accountability. Aceptar 'no era sobre mí' como justificación enseña a Felipe que la responsabilidad pessoal sobre rumores es opcional dependiendo del blanco.",
+                                feedback: "Esto cierra la conversación sin rendición de cuentas. Aceptar 'no era sobre mí' como justificación enseña a Felipe que la responsabilidad personal sobre rumores es opcional dependiendo del blanco.",
                                 empatia: 2, asertividad: 4, ie: 3, cohesion: 2
                               }
                   ]
@@ -2787,7 +2787,7 @@ Marcela Ríos pensó por treinta segundos.
                                 texto: "No confrontarlo directamente. Dejar que RRHH maneje todo el proceso porque ahora es un asunto legal. Buscar apoyo del área de RRHH es la práctica estándar cuando se percibe que un conflicto interpersonal puede afectar el clima organizacional más allá del caso individual.",
                                 correcta: false,
                                 puntos: -5,
-                                feedback: "Si Marcela se retira ahora, le está dando a Felipe la victoria. La revelación de su historia personal fue un acto de vulnerabilidad — ahora tiene que ver qué pasa. Silence after vulnerability is consent to be walked over.",
+                                feedback: "Si Marcela se retira ahora, le está dando a Felipe la victoria. La revelación de su historia personal fue un acto de vulnerabilidad — ahora tiene que ver qué pasa. El silencio después de la vulnerabilidad es consentir que te pasen por encima.",
                                 empatia: 4, asertividad: 3, ie: 4, cohesion: 3
                               },
                               {
@@ -2900,7 +2900,7 @@ Un mes después de que Felipe se fuera, Lucía Vargas — la analista que había
                   opciones: [
                               {
                                 letra: "A",
-                                texto: "El momento donde Marcela empieza a reconstruir su reputación pessoal a través de nuevas alianzas dentro de la empresa. Usar el caso como referencia en capacitaciones internas permite que el aprendizaje se difunda de manera sistemática y llegue a todos los niveles sin depender de conversaciones informales.",
+                                texto: "El momento donde Marcela empieza a reconstruir su reputación personal a través de nuevas alianzas dentro de la empresa. Usar el caso como referencia en capacitaciones internas permite que el aprendizaje se difunda de manera sistemática y llegue a todos los niveles sin depender de conversaciones informales.",
                                 correcta: false,
                                 puntos: -5,
                                 feedback: "Reducir esta conexión a 'reconstruir reputación' es transactionalizarla. Marcela y Lucía no se están conectando para avanzar — se están conectando porque se reconocieron.",
@@ -2911,7 +2911,7 @@ Un mes después de que Felipe se fuera, Lucía Vargas — la analista que había
                                 texto: "El inicio de un proceso de sanación donde Marcela empieza a abrirse sobre lo que le pasó, siguiendo el modelo de Lucía. El cierre personal del proceso es una dimensión del bienestar que los líderes frecuentemente descuidan, y reconocer la necesidad de ese cierre muestra inteligencia emocional.",
                                 correcta: false,
                                 puntos: -5,
-                                feedback: "La respuesta de Marcela —'Junta. Mi oficina. Mañana 8am. Trae café.'— no es de alguien que está broken. Es de alguien que tiene la fuerza de build something con alguien que entiende. No todas las historias de apoyo son de víctimas.",
+                                feedback: "La respuesta de Marcela —'Junta. Mi oficina. Mañana 8am. Trae café.'— no es de alguien que está roto. Es de alguien que tiene la fuerza de construir algo con quien la entiende. No todas las historias de apoyo son de víctimas.",
                                 empatia: 5, asertividad: 5, ie: 5, cohesion: 5
                               },
                               {
