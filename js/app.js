@@ -63,58 +63,88 @@ const AudioEngine = {
 };
 
 // ============================================================
-// PERFILES DE LIDERAZGO
+// SISTEMA DE RÚBRICA — LIDERAZGO EMOCIONAL
+// Puntaje total con 10 preguntas: -50 (todo mal) → 100 (todo bien)
 // ============================================================
-const PERFILES = {
-  empatia: {
-    nombre: 'Líder Humano',
-    emoji: '❤️',
-    color: '#e91e63',
-    descripcion: 'Tu fortaleza es la conexión genuina con las personas. Lees las emociones con precisión y creas espacios donde la gente se siente vista y escuchada. Los equipos confían en ti instintivamente.',
-    dimension: 'Empatía',
+
+function getNivel(totalScore) {
+  if (totalScore <= 0)  return { nivel: 1, nombre: 'Reactivo',        color: '#ef5350', emoji: '⚠️', rango: '-50 a 0' };
+  if (totalScore <= 35) return { nivel: 2, nombre: 'En Construcción', color: '#ff9800', emoji: '🔧', rango: '1 a 35' };
+  if (totalScore <= 60) return { nivel: 3, nombre: 'Funcional',       color: '#ffd740', emoji: '📈', rango: '36 a 60' };
+  if (totalScore <= 80) return { nivel: 4, nombre: 'Efectivo',        color: '#66bb6a', emoji: '✅', rango: '61 a 80' };
+  return                       { nivel: 5, nombre: 'Alto Impacto',    color: '#26c6da', emoji: '🎯', rango: '81 a 100' };
+}
+
+const DESCRIPCIONES_NIVEL = {
+  1: {
+    resumen: 'La mayoría de las decisiones del equipo tendieron a amplificar los problemas en lugar de contenerlos. Esto no refleja falta de intención — refleja que los patrones bajo presión aún no están alineados con las mejores prácticas de liderazgo emocional.',
+    empatia:     'Hay sensibilidad hacia las personas, pero se traduce en involucramiento emocional que complica la toma de decisiones. La empatía sin estructura genera triangulación y falta de límites claros.',
+    asertividad: 'Hay intención de actuar con decisión, pero bajo presión las respuestas tendieron a ser impulsivas o evasivas. La asertividad sin lectura emocional del contexto genera resistencia en el equipo.',
+    ie:          'Existe interés en comprender las dinámicas emocionales, pero aún no se traduce en decisiones efectivas en situaciones de alta complejidad.',
+    cohesion:    'La orientación hacia el equipo es genuina, pero las decisiones priorizaron la armonía a corto plazo sobre la efectividad. Esto posterga conflictos necesarios.',
   },
-  asertividad: {
-    nombre: 'Líder Ejecutor',
-    emoji: '⚡',
-    color: '#f57f17',
-    descripcion: 'Tomas decisiones con claridad y las sostienes con convicción. En momentos de presión, tu equipo sabe que habrá una dirección. Transformas la incertidumbre en acción.',
-    dimension: 'Asertividad',
+  2: {
+    resumen: 'El equipo muestra intuición de liderazgo en algunos momentos, pero la reacción emocional predomina sobre la gestión estratégica. Hay una base para desarrollar — los patrones están emergiendo.',
+    empatia:     'La empatía funciona bien en contextos de baja complejidad. En escenarios de alta presión, la conexión emocional tendió a nublar la dirección necesaria.',
+    asertividad: 'Hay claridad en las posiciones, pero el equipo aún tiene dificultad calibrando el momento y la forma de comunicarlas. La asertividad efectiva requiere leer el contexto emocional.',
+    ie:          'La conciencia emocional está presente pero su aplicación es inconsistente. El equipo reconoce lo que pasa emocionalmente en algunos casos, pero no de forma sistemática.',
+    cohesion:    'La orientación al equipo es genuina. El reto es que la cohesión real no puede construirse evitando las conversaciones difíciles — ese es el punto donde el equipo aún cede.',
   },
-  ie: {
-    nombre: 'Líder Consciente',
-    emoji: '🧠',
-    color: '#00bcd4',
-    descripcion: 'Navegas la complejidad emocional con maestría. Entiendes el "por qué" detrás de los comportamientos y usas esa comprensión para facilitar conversaciones difíciles con sabiduría.',
-    dimension: 'Inteligencia Emocional',
+  3: {
+    resumen: 'El equipo tiene una base sólida de liderazgo emocional. Resuelve la mayoría de las situaciones de forma efectiva, aunque en los escenarios de mayor complejidad aún aparecen oportunidades de mejora claras.',
+    empatia:     'El equipo demuestra empatía práctica: entiende las emociones y las usa como información para decidir. El desarrollo está en mantener esa capacidad bajo presión extrema.',
+    asertividad: 'Las decisiones son claras y el equipo las sostiene en la mayoría de escenarios. El área de desarrollo es la asertividad compasiva: decir lo difícil sin romper la relación.',
+    ie:          'El equipo navega la complejidad emocional con criterio y reconoce sus sesgos en algunos contextos. El siguiente nivel es hacerlo de forma consistente en situaciones de mayor ambigüedad.',
+    cohesion:    'El equipo construye confianza y alineación. El reto está en sostener la cohesión cuando hay que tomar decisiones que no gustan a todos — ahí la dinámica aún se tensiona.',
   },
-  cohesion: {
-    nombre: 'Líder de Equipo',
-    emoji: '🤝',
-    color: '#4caf50',
-    descripcion: 'Tu poder está en construir colectivos que funcionan. Creas cohesión donde había individualismo — tu equipo supera su potencial individual cuando trabaja contigo.',
-    dimension: 'Cohesión de Equipo',
+  4: {
+    resumen: 'El equipo demuestra un manejo consistente de escenarios complejos. Sus decisiones tienen impacto positivo claro en las personas y en los resultados. Está en el cuartil superior de liderazgo emocional.',
+    empatia:     'La empatía es una competencia madura. El equipo lee con precisión los estados emocionales y los integra en la toma de decisiones sin perder efectividad.',
+    asertividad: 'El equipo toma posición con claridad y genera dirección en situaciones ambiguas. Su asertividad es un recurso confiable que activa cuando lo necesita.',
+    ie:          'El equipo maneja la complejidad emocional con sofisticación: distingue entre reacción e interpretación y elige sus respuestas de manera consciente en la mayoría de escenarios.',
+    cohesion:    'El equipo construye contextos donde las personas se sienten seguras para comprometerse. Su orientación colectiva amplifica el potencial individual de cada miembro.',
+  },
+  5: {
+    resumen: 'El equipo demostró toma de decisiones alineada con las mejores prácticas de inteligencia emocional organizacional. Este nivel de respuesta ante situaciones complejas es poco común y altamente valorado.',
+    empatia:     'La empatía opera al nivel de los mejores líderes: es precisa, oportuna y nunca sacrifica la efectividad por la comodidad. Un diferenciador real en escenarios de alta presión.',
+    asertividad: 'La asertividad es excepcional: el equipo toma posición cuando importa, lo comunica con claridad y lo sostiene con evidencia. Genera dirección incluso sin consenso.',
+    ie:          'El equipo demuestra inteligencia emocional de alto rendimiento: entiende, regula y usa las emociones como información estratégica. Esta capacidad es rara y crea ventaja competitiva.',
+    cohesion:    'Este equipo construye cohesión que resiste la presión. Su capacidad de alinear personas alrededor de objetivos comunes, incluso en momentos difíciles, es su mayor activo.',
   },
 };
 
-function calcularPerfil(totals) {
+function calcularPerfil(totals, totalScore) {
   const dims = [
-    { key: 'empatia',      val: totals.empatia },
-    { key: 'asertividad',  val: totals.asertividad },
-    { key: 'ie',           val: totals.ie },
-    { key: 'cohesion',     val: totals.cohesion },
+    { key: 'empatia',      label: 'Empatía',                val: totals.empatia },
+    { key: 'asertividad',  label: 'Asertividad',            val: totals.asertividad },
+    { key: 'ie',           label: 'Inteligencia Emocional', val: totals.ie },
+    { key: 'cohesion',     label: 'Cohesión de Equipo',     val: totals.cohesion },
   ].sort((a, b) => b.val - a.val);
 
-  // Equilibrio si la diferencia entre el 1° y 2° es mínima
-  if (dims[0].val > 0 && dims[0].val - dims[1].val <= 1) {
-    return {
-      nombre: 'Líder Integral',
-      emoji: '🌟',
-      color: '#ffd700',
-      descripcion: 'Demuestras un equilibrio excepcional entre todas las dimensiones del liderazgo emocional. Tu versatilidad te permite adaptarte con maestría a cualquier situación.',
-      dimension: 'Equilibrio Total',
-    };
-  }
-  return PERFILES[dims[0].key];
+  const nivel = getNivel(totalScore);
+  const dominante = dims[0];
+  const debil = dims[dims.length - 1];
+  const desc = DESCRIPCIONES_NIVEL[nivel.nivel];
+
+  return {
+    nivel: nivel.nivel,
+    nombre: nivel.nombre,
+    emoji: nivel.emoji,
+    color: nivel.color,
+    resumen: desc.resumen,
+    descripcionDim: desc[dominante.key],
+    dominante: dominante.label,
+    debil: debil.label,
+    debilVal: debil.val,
+  };
+}
+
+function getDimLabel(val) {
+  if (val <= 3) return { text: 'Área crítica',  color: '#ef5350' };
+  if (val <= 5) return { text: 'Por desarrollar', color: '#ff9800' };
+  if (val <= 7) return { text: 'Promedio',      color: '#ffd740' };
+  if (val <= 9) return { text: 'Fortaleza',     color: '#66bb6a' };
+  return               { text: 'Excepcional',   color: '#26c6da' };
 }
 
 // ============================================================
@@ -610,11 +640,29 @@ function showResults() {
     if (bar) bar.textContent = val;
   });
 
-  // Barras animadas (max 10)
+  // Barras animadas (max 10) + etiqueta de nivel por dimensión
   setTimeout(() => {
     ['empatia', 'asertividad', 'ie', 'cohesion'].forEach(dim => {
       const fill = document.getElementById(`bar-fill-${dim}`);
       if (fill) fill.style.width = `${Math.min(100, (totals[dim] / 10) * 100)}%`;
+      // Inyectar etiqueta de nivel debajo de la barra
+      const track = fill?.parentElement;
+      if (track) {
+        const lbl = getDimLabel(totals[dim]);
+        let tag = track.nextElementSibling;
+        if (!tag || !tag.classList.contains('dim-level-tag')) {
+          tag = document.createElement('div');
+          tag.className = 'dim-level-tag';
+          track.after(tag);
+        }
+        tag.textContent = lbl.text;
+        tag.style.color = lbl.color;
+        tag.style.fontSize = '0.72rem';
+        tag.style.fontWeight = '600';
+        tag.style.marginTop = '4px';
+        tag.style.letterSpacing = '0.04em';
+        tag.style.textTransform = 'uppercase';
+      }
     });
   }, 350);
 
@@ -624,8 +672,8 @@ function showResults() {
   // Gráfico radar
   setTimeout(() => renderRadar(totals), 700);
 
-  // Perfil de liderazgo
-  setTimeout(() => revealProfile(totals), 1300);
+  // Perfil de liderazgo — pasar totalScore para rúbrica
+  setTimeout(() => revealProfile(totals, State.totalScore), 1300);
 
   // Guardar en Supabase
   if (State.allAnswers.length > 0) {
@@ -688,17 +736,16 @@ function renderRadar(totals) {
 }
 
 // ============================================================
-// PERFIL REVEAL
+// PERFIL REVEAL — Rúbrica científica por puntaje + dimensión
 // ============================================================
-function revealProfile(totals) {
-  const perfil = calcularPerfil(totals);
+function revealProfile(totals, totalScore) {
+  const perfil = calcularPerfil(totals, totalScore);
 
   let el = document.getElementById('profile-reveal');
   if (!el) {
     el = document.createElement('div');
     el.id = 'profile-reveal';
     el.className = 'profile-reveal';
-    // Insertar antes de las barras
     const barCard = document.querySelector('#screen-results .bar-chart')?.closest('.card');
     if (barCard) barCard.parentNode.insertBefore(el, barCard);
     else document.querySelector('.results-container')?.appendChild(el);
@@ -707,19 +754,42 @@ function revealProfile(totals) {
   el.style.background = `linear-gradient(135deg, ${perfil.color}18 0%, rgba(10,14,26,0.9) 100%)`;
   el.style.borderColor = `${perfil.color}55`;
 
+  // Generar los 5 niveles visuales
+  const nivelesHTML = [1,2,3,4,5].map(n => {
+    const names = ['Reactivo','En Construcción','Funcional','Efectivo','Alto Impacto'];
+    const colors = ['#ef5350','#ff9800','#ffd740','#66bb6a','#26c6da'];
+    const active = n === perfil.nivel;
+    return `<div style="
+      flex:1; height:6px; border-radius:3px;
+      background:${active ? colors[n-1] : 'rgba(255,255,255,0.1)'};
+      transition: all 0.4s;
+    " title="${names[n-1]}"></div>`;
+  }).join('');
+
   el.innerHTML = `
-    <span class="profile-emoji">${perfil.emoji}</span>
-    <div class="profile-label">Tu perfil de liderazgo</div>
-    <div class="profile-name" style="color:${perfil.color}">${perfil.nombre}</div>
-    <p class="profile-desc">${perfil.descripcion}</p>
-    <div class="profile-dim">Dimensión dominante · ${perfil.dimension}</div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+      <span style="font-size:2rem">${perfil.emoji}</span>
+      <div>
+        <div style="font-size:0.7rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:0.08em">Nivel de Liderazgo Emocional</div>
+        <div style="font-size:1.4rem;font-weight:700;color:${perfil.color};font-family:var(--font-heading)">${perfil.nombre}</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:4px;margin-bottom:14px">${nivelesHTML}</div>
+    <p style="font-size:0.85rem;color:rgba(255,255,255,0.78);line-height:1.6;margin-bottom:12px">${perfil.resumen}</p>
+    <div style="border-top:1px solid rgba(255,255,255,0.07);padding-top:12px;margin-bottom:10px">
+      <div style="font-size:0.72rem;color:${perfil.color};text-transform:uppercase;letter-spacing:0.07em;font-weight:600;margin-bottom:6px">Dimensión predominante · ${perfil.dominante}</div>
+      <p style="font-size:0.82rem;color:rgba(255,255,255,0.65);line-height:1.55;margin:0">${perfil.descripcionDim}</p>
+    </div>
+    <div style="font-size:0.75rem;color:rgba(255,255,255,0.4);margin-top:6px">
+      Mayor oportunidad de desarrollo: <span style="color:#ff9800;font-weight:600">${perfil.debil} (${perfil.debilVal}/10)</span>
+    </div>
   `;
   el.classList.remove('hidden');
 }
 
 async function saveResults(totals) {
   const db = getClient();
-  const perfil = calcularPerfil(totals);
+  const perfil = calcularPerfil(totals, State.totalScore);
   await db.from('resultados').insert({
     equipo_id: State.teamId,
     empatia_total: totals.empatia,
