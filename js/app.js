@@ -284,6 +284,7 @@ const State = {
   totalScore: 0,
   scoreBreakdown: { empatia: 0, asertividad: 0, ie: 0, cohesion: 0 },
   answeredCount: 0,
+  totalAnswered: 0,
   allAnswers: [],
 };
 
@@ -464,6 +465,7 @@ function startAssessment() {
   State.totalScore = 0;
   State.scoreBreakdown = { empatia: 0, asertividad: 0, ie: 0, cohesion: 0 };
   State.answeredCount = 0;
+  State.totalAnswered = 0;
   State.allAnswers = [];
   renderCurrentQuestion();
   startTimer();
@@ -541,6 +543,7 @@ function onOptionSelected(opt, btnEl) {
   const isCorrect = opt.correcta === true;
 
   // Acumular score
+  State.totalAnswered++; // siempre, correcta o no
   if (isCorrect) {
     State.totalScore += opt.puntos;
     State.scoreBreakdown.empatia += opt.empatia;
@@ -549,6 +552,9 @@ function onOptionSelected(opt, btnEl) {
     State.scoreBreakdown.cohesion += opt.cohesion;
     State.answeredCount++;
     State.allAnswers.push(opt);
+    document.getElementById('score-value').textContent = State.totalScore;
+  } else {
+    State.totalScore += opt.puntos; // aplica -5
     document.getElementById('score-value').textContent = State.totalScore;
   }
 
@@ -727,7 +733,9 @@ function updateTimer(secs) {
 function showResults() {
   showScreen('screen-results');
 
-  const n = Math.max(1, State.answeredCount);
+  // Dividir por TOTAL de preguntas respondidas (correctas + incorrectas)
+  // así las dimensiones reflejan el desempeño real: 4/10 correctas → scores bajos
+  const n = Math.max(1, State.totalAnswered);
   const totals = {
     empatia:     Math.round(State.scoreBreakdown.empatia / n),
     asertividad: Math.round(State.scoreBreakdown.asertividad / n),
