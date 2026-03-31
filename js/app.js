@@ -255,12 +255,14 @@ function calcularPerfil(totals, totalScore) {
   };
 }
 
+const MAX_SCORES = { empatia: 56, asertividad: 57, ie: 56, cohesion: 52 };
+
 function getDimLabel(val) {
-  if (val <= 3) return { text: 'Área crítica',  color: '#ef5350' };
-  if (val <= 5) return { text: 'Por desarrollar', color: '#ff9800' };
-  if (val <= 7) return { text: 'Promedio',      color: '#ffd740' };
-  if (val <= 9) return { text: 'Fortaleza',     color: '#66bb6a' };
-  return               { text: 'Excepcional',   color: '#26c6da' };
+  if (val <= 30) return { text: 'Área crítica',    color: '#ef5350' };
+  if (val <= 50) return { text: 'Por desarrollar', color: '#ff9800' };
+  if (val <= 70) return { text: 'Promedio',        color: '#ffd740' };
+  if (val <= 90) return { text: 'Fortaleza',       color: '#66bb6a' };
+  return                { text: 'Excepcional',     color: '#26c6da' };
 }
 
 // ============================================================
@@ -720,15 +722,14 @@ function updateTimer(secs) {
 function showResults() {
   showScreen('screen-results');
 
-  // Dividir por TOTAL de preguntas respondidas (correctas + incorrectas)
-  // así las dimensiones reflejan el desempeño real: 4/10 correctas → scores bajos
-  const n = Math.max(1, State.totalAnswered);
-  const totals = {
-    empatia:     Math.round(State.scoreBreakdown.empatia / n),
-    asertividad: Math.round(State.scoreBreakdown.asertividad / n),
-    ie:          Math.round(State.scoreBreakdown.ie / n),
-    cohesion:    Math.round(State.scoreBreakdown.cohesion / n),
+  // Porcentaje real sobre el máximo posible por dimensión
+  const pcts = {
+    empatia:     Math.round((State.scoreBreakdown.empatia     / MAX_SCORES.empatia)     * 100),
+    asertividad: Math.round((State.scoreBreakdown.asertividad / MAX_SCORES.asertividad) * 100),
+    ie:          Math.round((State.scoreBreakdown.ie          / MAX_SCORES.ie)          * 100),
+    cohesion:    Math.round((State.scoreBreakdown.cohesion    / MAX_SCORES.cohesion)    * 100),
   };
+  const totals = pcts; // alias — perfil y radar usan la misma variable
 
   // Código de equipo + puntaje total
   const teamEl = document.getElementById('results-team-code');
@@ -747,15 +748,15 @@ function showResults() {
   ].forEach(([cardId, barId, val]) => {
     const el = document.getElementById(cardId);
     const bar = document.getElementById(barId);
-    if (el) el.textContent = val;
-    if (bar) bar.textContent = val;
+    if (el) el.textContent = val + '%';
+    if (bar) bar.textContent = val + '%';
   });
 
   // Barras animadas (max 10) + etiqueta de nivel por dimensión
   setTimeout(() => {
     ['empatia', 'asertividad', 'ie', 'cohesion'].forEach(dim => {
       const fill = document.getElementById(`bar-fill-${dim}`);
-      if (fill) fill.style.width = `${Math.min(100, (totals[dim] / 10) * 100)}%`;
+      if (fill) fill.style.width = `${Math.min(100, totals[dim])}%`;
       // Inyectar etiqueta de nivel debajo de la barra
       const track = fill?.parentElement;
       if (track) {
@@ -827,9 +828,9 @@ function renderRadar(totals) {
       scales: {
         r: {
           min: 0,
-          max: 10,
+          max: 100,
           ticks: {
-            stepSize: 2,
+            stepSize: 20,
             color: 'rgba(255,255,255,0.25)',
             font: { size: 9 },
             backdropColor: 'transparent',

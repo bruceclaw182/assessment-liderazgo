@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assessment Center - Facilitador</title>
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .score-cell { text-align: center; }
+        .score-raw { font-size: 1rem; font-weight: 700; line-height: 1.2; }
+        .score-pct { font-size: 0.7rem; color: rgba(255,255,255,0.45); line-height: 1.2; }
+        .score-bar {
+            height: 3px;
+            border-radius: 2px;
+            margin-top: 4px;
+            background: rgba(255,255,255,0.08);
+            overflow: hidden;
+        }
+        .score-bar-fill { height: 100%; border-radius: 2px; transition: width 0.4s; }
+    </style>
 </head>
 <body>
 
@@ -23,10 +36,10 @@
                     <thead>
                         <tr>
                             <th>Equipo</th>
-                            <th style="color:#e91e63">Empatía</th>
-                            <th style="color:#f57f17">Asertividad</th>
-                            <th style="color:#00bcd4">I.E.</th>
-                            <th style="color:#4caf50">Cohesión</th>
+                            <th style="color:#e91e63;text-align:center">Empatía<br><span style="font-size:0.65rem;color:rgba(255,255,255,0.3);font-weight:400">máx 56</span></th>
+                            <th style="color:#f57f17;text-align:center">Asertividad<br><span style="font-size:0.65rem;color:rgba(255,255,255,0.3);font-weight:400">máx 57</span></th>
+                            <th style="color:#00bcd4;text-align:center">I.E.<br><span style="font-size:0.65rem;color:rgba(255,255,255,0.3);font-weight:400">máx 56</span></th>
+                            <th style="color:#4caf50;text-align:center">Cohesión<br><span style="font-size:0.65rem;color:rgba(255,255,255,0.3);font-weight:400">máx 52</span></th>
                             <th>Perfil</th>
                             <th>Estado</th>
                         </tr>
@@ -51,6 +64,69 @@
     <script src="js/supabase.js"></script>
     <script src="js/app.js"></script>
     <script>
+        const MAX_SCORES = { empatia: 56, asertividad: 57, ie: 56, cohesion: 52 };
+        const COLORS = { empatia: '#e91e63', asertividad: '#f57f17', ie: '#00bcd4', cohesion: '#4caf50' };
+
+        function pct(val, max) { return Math.min(100, Math.round((val / max) * 100)); }
+
+        function scoreCell(val, dim) {
+            if (val === null || val === undefined || val === 0) {
+                return `<td class="score-cell">
+                    <div class="score-raw" style="color:rgba(255,255,255,0.2)">—</div>
+                </td>`;
+            }
+            const p = pct(val, MAX_SCORES[dim]);
+            const color = COLORS[dim];
+            return `<td class="score-cell">
+                <div class="score-raw" style="color:${color}">${val}</div>
+                <div class="score-pct">${p}%</div>
+                <div class="score-bar">
+                    <div class="score-bar-fill" style="width:${p}%;background:${color}"></div>
+                </div>
+            </td>`;
+        }
+
+        // Override loadFacilitatorData to use enhanced cells
+        async function loadFacilitatorData() {
+            const tbody = document.getElementById('facilitator-table-body');
+            if (!tbody) return;
+            try {
+                const db = getClient();
+                const [{ data: equipos }, { data: respuestas }, { data: resultados }] = await Promise.all([
+                    db.from('equipos').select('*'),
+                    db.from('respuestas').select('*'),
+                    db.from('resultados').select('*'),
+                ]);
+
+                if (!equipos?.length) {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;color:#546e7a">Esperando equipos...</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = '';
+                equipos.forEach(eq => {
+                    const resps = (respuestas || []).filter(r => r.equipo_id === eq.id);
+                    const result = (resultados || []).find(r => r.equipo_id === eq.id);
+                    const done = resps.length > 0;
+                    const sum = key => resps.reduce((s, r) => s + (r[key] || 0), 0);
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>${eq.codigo}</strong></td>
+                        ${done ? scoreCell(sum('empatia'), 'empatia') : '<td class="score-cell"><div class="score-raw" style="color:rgba(255,255,255,0.2)">—</div></td>'}
+                        ${done ? scoreCell(sum('asertividad'), 'asertividad') : '<td class="score-cell"><div class="score-raw" style="color:rgba(255,255,255,0.2)">—</div></td>'}
+                        ${done ? scoreCell(sum('ie'), 'ie') : '<td class="score-cell"><div class="score-raw" style="color:rgba(255,255,255,0.2)">—</div></td>'}
+                        ${done ? scoreCell(sum('cohesion'), 'cohesion') : '<td class="score-cell"><div class="score-raw" style="color:rgba(255,255,255,0.2)">—</div></td>'}
+                        <td style="font-size:0.8rem;color:#b0bec5">${result?.perfil_predominante || '—'}</td>
+                        <td><span class="status-badge ${done ? 'status-completed' : 'status-pending'}">${done ? 'Completado' : 'Pendiente'}</span></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch(_) {
+                tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;color:#546e7a">Modo demo — configura Supabase para datos en vivo</td></tr>';
+            }
+        }
+
         document.getElementById('btn-export-csv')?.addEventListener('click', exportCSV);
     </script>
 </body>
