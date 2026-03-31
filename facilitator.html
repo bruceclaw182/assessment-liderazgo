@@ -7,52 +7,51 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!--
-    ==========================================================================
-    FACILITATOR REAL-TIME DASHBOARD (Rick's View)
-    ==========================================================================
-    Purpose: Real-time monitoring of all teams during the assessment.
-    
-    TODO:
-    - [ ] Display list of all active teams
-    - [ ] Show current case each team is on
-    - [ ] Display decision status (pending/submitted)
-    - [ ] Real-time updates via Supabase subscription
-    - [ ] Timer synchronization across all teams
-    - [ ] Add ability to extend time for specific teams
-    - [ ] View team decision history
-    - [ ] Add comments/feedback per team
-    - [ ] Export all results to CSV/Excel
-    - [ ] Admin controls for case management
-    - [ ] QR code generator for team setup (see js/qr.js)
-    ==========================================================================
-    -->
-    
-    <div class="container facilitator-dashboard">
-        <header>
-            <h1>Panel del Facilitador</h1>
-            <div class="workshop-timer" id="workshopTimer">00:00</div>
-        </header>
-        
-        <div class="controls">
-            <button id="startWorkshop">Iniciar Workshop</button>
-            <button id="nextCase">Siguiente Caso</button>
-            <button id="endWorkshop">Finalizar Workshop</button>
-        </div>
-        
-        <div class="teams-grid" id="teamsGrid">
-            <!-- Team cards injected by JS -->
-        </div>
-        
-        <div class="qr-generator">
-            <h3>Generar Códigos QR</h3>
-            <button id="generateQR">Generar QR para Equipos</button>
-            <div id="qrCodesContainer"></div>
+
+    <div id="screen-facilitator" class="screen">
+        <div class="container" style="max-width:1100px;padding-top:2rem">
+
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:2rem">
+                <h1 style="font-size:1.6rem;margin:0">Panel del Facilitador</h1>
+                <button id="btn-export-csv" class="btn btn-secondary" style="font-size:0.85rem;padding:0.5rem 1.2rem">
+                    Exportar CSV
+                </button>
+            </div>
+
+            <div class="card" style="padding:0;overflow:hidden">
+                <table class="facilitator-table" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Equipo</th>
+                            <th style="color:#e91e63">Empatía</th>
+                            <th style="color:#f57f17">Asertividad</th>
+                            <th style="color:#00bcd4">I.E.</th>
+                            <th style="color:#4caf50">Cohesión</th>
+                            <th>Perfil</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="facilitator-table-body">
+                        <tr>
+                            <td colspan="7" style="text-align:center;padding:2rem;color:#546e7a">
+                                Cargando datos...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p style="text-align:center;margin-top:1rem;font-size:0.78rem;color:#546e7a">
+                Actualización automática cada 5 segundos
+            </p>
+
         </div>
     </div>
-    
+
     <script src="js/supabase.js"></script>
-    <script src="js/qr.js"></script>
     <script src="js/app.js"></script>
+    <script>
+        document.getElementById('btn-export-csv')?.addEventListener('click', exportCSV);
+    </script>
 </body>
 </html>
